@@ -1,0 +1,62 @@
+name: build-and-test
+on:
+  workflow_call:
+    inputs:
+      test_command:
+        description: Command that runs the test suite with coverage
+        required: true
+        type: string
+      node_version:
+        description: Node version to use
+        required: false
+        default: "20"
+        type: string
+      working_directory:
+        description: Optional working directory
+        required: false
+        default: "."
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Build and test
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - name: Checkout caller repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node_version }}
+          cache: "npm"
+          cache-dependency-path: |
+            ${{ inputs.working_directory }}/package-lock.json
+            ${{ inputs.working_directory }}/npm-shrinkwrap.json
+
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Run tests
+        run: ${{ inputs.test_command }}
+
+      - name: Upload coverage if present
+        if: ${{ hashFiles('**/coverage/**') != '' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: |
+            **/coverage/**
+            **/coverage.*.json
+

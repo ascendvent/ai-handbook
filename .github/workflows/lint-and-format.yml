@@ -1,0 +1,62 @@
+name: lint-and-format
+on:
+  workflow_call:
+    inputs:
+      lint_command:
+        description: Command to run the linter
+        required: true
+        type: string
+      format_command:
+        description: Command to run the formatter
+        required: false
+        default: ""
+        type: string
+      node_version:
+        description: Node version to use
+        required: false
+        default: "20"
+        type: string
+      working_directory:
+        description: Optional working directory
+        required: false
+        default: "."
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    name: Lint and format check
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ${{ inputs.working_directory }}
+    steps:
+      - name: Checkout caller repo
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ inputs.node_version }}
+          cache: "npm"
+          cache-dependency-path: |
+            ${{ inputs.working_directory }}/package-lock.json
+            ${{ inputs.working_directory }}/npm-shrinkwrap.json
+
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci
+          else
+            npm install
+          fi
+
+      - name: Run linter
+        run: ${{ inputs.lint_command }}
+
+      - name: Run formatter check
+        if: ${{ inputs.format_command != '' }}
+        run: ${{ inputs.format_command }}
+
