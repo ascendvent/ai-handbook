@@ -1,0 +1,78 @@
+name: Release Package
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version to release (e.g., v1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://npm.pkg.github.com'
+          scope: '@ascendvent'
+          
+      - name: Configure npm
+        run: |
+          echo "@ascendvent:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+          echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Install dependencies
+        run: npm ci || npm install
+        
+      - name: Run tests
+        run: npm test
+        
+      - name: Update version file
+        run: echo ${{ github.ref_name }} | sed 's/^v//' > VERSION.md
+        
+      - name: Publish to GitHub Package Registry
+        run: npm publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ github.ref_name }}
+          release_name: Release ${{ github.ref_name }}
+          body: |
+            ## Changes
+            See [CHANGELOG.md](./CHANGELOG.md) for detailed changes.
+            
+            ## Installation
+            ```bash
+            npm install @ascendvent/ai-handbook@${{ github.ref_name }}
+            ```
+            
+            Or add to package.json:
+            ```json
+            {
+              "dependencies": {
+                "@ascendvent/ai-handbook": "github:ascendvent/ai-handbook#${{ github.ref_name }}"
+              }
+            }
+            ```
+          draft: false
+          prerelease: false

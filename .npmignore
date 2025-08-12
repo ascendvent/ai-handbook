@@ -1,0 +1,12 @@
+# Development files
+.git/
+.github/
+node_modules/
+*.log
+.DS_Store
+
+# Documentation that shouldn't be in package
+.gitignore
+.npmignore
+
+# Keep only essential files for package distribution

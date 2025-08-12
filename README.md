@@ -19,38 +19,37 @@ This repository serves as the central policy and standards hub that defines how 
 
 ## How Ascendvent Projects Use This
 
-### Initial Setup
-1. **Copy** `templates/CLAUDE.template.md` into your project repo as `CLAUDE.md`
-2. **Inherit** from this handbook with version pinning: `ascendvent/ai-handbook@v1.0.0`
-3. **Include** only relevant playbooks for your tech stack
-4. **Add** project-specific rules while maintaining global compliance
-5. **Validate** policy inheritance through automated CI checks
+### Installation
 
-### Node.js Project Integration
-For Node.js projects, add this to your `package.json`:
-
+Add to your `package.json`:
 ```json
 {
-  "scripts": {
-    "policy:validate": "node scripts/validate-claude-policy.js",
-    "policy:update": "git submodule update --remote ai-handbook"
-  },
-  "devDependencies": {
-    "@ascendvent/policy-validator": "^1.0.0"
+  "dependencies": {
+    "@ascendvent/ai-handbook": "github:ascendvent/ai-handbook#v1.0.0"
   }
 }
 ```
 
-Then add the handbook as a git submodule:
-```bash
-# Add handbook as submodule for policy inheritance
-git submodule add https://github.com/ascendvent/ai-handbook.git .ai-handbook
+See [INSTALLATION.md](./INSTALLATION.md) for detailed setup instructions.
 
-# Install policy validation tools
-npm install --save-dev @ascendvent/policy-validator
+### Initial Setup
+1. **Install** the package: `npm install @ascendvent/ai-handbook`
+2. **Copy** template to your project: `node -e "const h=require('@ascendvent/ai-handbook'); require('fs').writeFileSync('CLAUDE.md', h.getTemplate())"`
+3. **Edit** your `CLAUDE.md` to inherit from this handbook version
+4. **Include** only relevant playbooks for your tech stack
+5. **Validate** policy inheritance: `node -e "const h=require('@ascendvent/ai-handbook'); console.log(h.validatePolicy(require('fs').readFileSync('CLAUDE.md','utf8')))"`
 
-# Validate your CLAUDE.md inherits correctly
-npm run policy:validate
+### Usage Example
+```javascript
+const handbook = require('@ascendvent/ai-handbook');
+
+// Get global policy and Claude config
+const policy = handbook.getPolicy();
+const claudeConfig = handbook.getClaudeGlobal();
+
+// Get specific playbooks for your stack
+const reactHooks = handbook.getPlaybook('REACT-HOOKS.md');
+const typescript = handbook.getPlaybook('TYPESCRIPT.md');
 ```
 
 ## Inheritance Pattern

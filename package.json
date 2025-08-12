@@ -1,0 +1,60 @@
+{
+  "name": "@ascendvent/ai-handbook",
+  "version": "1.0.0",
+  "description": "Global AI Engineering Guardrails for Ascendvent LLC - Standards and protocols for AI-assisted development",
+  "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./policy": "./POLICY.md",
+    "./claude-global": "./CLAUDE_GLOBAL.md",
+    "./playbooks/*": "./playbooks/*",
+    "./agents/*": "./agents/*",
+    "./templates/*": "./templates/*",
+    "./scripts/*": "./scripts/*"
+  },
+  "files": [
+    "index.js",
+    "POLICY.md",
+    "CLAUDE_GLOBAL.md",
+    "playbooks/",
+    "agents/",
+    "templates/",
+    "scripts/",
+    "README.md",
+    "CHANGELOG.md",
+    "VERSION.md"
+  ],
+  "scripts": {
+    "test": "node scripts/validator/validate-policy.cjs",
+    "prepare": "npm run test",
+    "version": "echo $npm_package_version > VERSION.md && git add VERSION.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ascendvent/ai-handbook.git"
+  },
+  "keywords": [
+    "ai",
+    "claude",
+    "engineering",
+    "standards",
+    "development",
+    "guardrails",
+    "ascendvent"
+  ],
+  "author": "Ascendvent LLC",
+  "license": "UNLICENSED",
+  "private": true,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/"
+  },
+  "engines": {
+    "node": ">=16.0.0"
+  },
+  "devDependencies": {},
+  "peerDependencies": {},
+  "homepage": "https://github.com/ascendvent/ai-handbook#readme",
+  "bugs": {
+    "url": "https://github.com/ascendvent/ai-handbook/issues"
+  }
+}
