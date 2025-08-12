@@ -15,8 +15,9 @@ jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
+      id-token: write
       
     steps:
       - name: Checkout
@@ -29,10 +30,11 @@ jobs:
           registry-url: 'https://npm.pkg.github.com'
           scope: '@ascendvent'
           
-      - name: Configure npm
+      - name: Configure npm for GitHub Package Registry
         run: |
           echo "@ascendvent:registry=https://npm.pkg.github.com/" >> ~/.npmrc
           echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" >> ~/.npmrc
+          echo "registry=https://registry.npmjs.org/" >> ~/.npmrc
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           
@@ -46,7 +48,9 @@ jobs:
         run: echo ${{ github.ref_name }} | sed 's/^v//' > VERSION.md
         
       - name: Publish to GitHub Package Registry
-        run: npm publish
+        run: |
+          echo "Publishing private package to GitHub Package Registry..."
+          npm publish --registry https://npm.pkg.github.com/ --access restricted
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           

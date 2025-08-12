@@ -19,16 +19,25 @@ Then install:
 npm install
 ```
 
-### Method 2: GitHub Package Registry
+### Method 2: GitHub Package Registry (For Ascendvent Organization Members)
 
-First, configure npm to use GitHub Package Registry for @ascendvent scope:
+First, authenticate with GitHub Package Registry:
 
+1. **Create a GitHub Personal Access Token**:
+   - Go to GitHub Settings → Developer settings → Personal access tokens
+   - Create token with `packages:read` permission
+   - For Ascendvent organization members only
+
+2. **Configure npm**:
 ```bash
+# Set registry for @ascendvent scope
 npm config set @ascendvent:registry https://npm.pkg.github.com/
+
+# Authenticate (replace YOUR_TOKEN with your GitHub token)
 npm config set //npm.pkg.github.com/:_authToken YOUR_GITHUB_TOKEN
 ```
 
-Then install:
+3. **Install the package**:
 ```bash
 npm install @ascendvent/ai-handbook@1.0.0
 ```

@@ -44,9 +44,9 @@
   ],
   "author": "Ascendvent LLC",
   "license": "UNLICENSED",
-  "private": true,
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/"
+    "registry": "https://npm.pkg.github.com/",
+    "access": "restricted"
   },
   "engines": {
     "node": ">=16.0.0"
