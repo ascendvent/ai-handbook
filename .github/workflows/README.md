@@ -105,3 +105,4 @@ Always pin to a version tag:
 If you want, I can now give you **`scripts/validator/validate-policy.cjs`** so `policy-validate.yml` is actually functional and rejects bad CLAUDE.md files automatically. That’s the last big piece for full enforcement.
 ```
 
+| **Refactoring Agent** | Reviews code for DRY and refactoring opportunities, flags duplicates/dead code, and can open a `refactor/<scope>` branch + PR with a prioritized plan. |

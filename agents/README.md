@@ -16,6 +16,7 @@ These agents automatically enforce the policies defined in this handbook across 
 | Research Agent              | Evidence-based methodology and architecture analysis | Manual spawn for research tasks |
 | Security Monitor Agent      | Security scan results, critical issue hotfixes    | Security scan completion    |
 | Release Notes Agent         | Automated CHANGELOG updates from PR patterns      | Merge to develop/main       |
+| **Refactoring Agent**       | **DRY violations, dead code detection, architecture quality** | **Pre-spec implementation, PR sync, monthly cron** |
 
 ## Scope & Inheritance
 - **Runs automatically** in all repos with `CLAUDE.md` files that inherit from this handbook

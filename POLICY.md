@@ -14,7 +14,7 @@ Urgency does NOT justify protocol violations.
 
 **Mandatory Pre-Action Checklist**
 
-* [ ] **STOP.** Reference CLAUDE.md requirements before any action
+* [ ] **STOP.** Reference POLICY.md requirements before any action
 * [ ] **CHECK.** If this is covered by existing agents use agents first
 * [ ] **TEST.** Run the project’s full test checklist for any code changes
 * [ ] **REBUILD.** Follow the project’s stack playbook for rebuild rules
@@ -83,7 +83,7 @@ Follow the stack playbook for rebuild rules and health checks.
 
 **Claude behavior requirements**
 
-* Reference CLAUDE.md before every action
+* Reference POLICY.md before every action
 * Use agents first
 * Run the testing checklist for any code change
 * Follow stack rebuild rules
@@ -405,6 +405,13 @@ Protocol compliance first. Agent-first implementation. Testing-driven developmen
 
 Analyze impacted files. Apply DRY. Propose a refactor plan. Await approval. Use a dedicated `refactor/<scope>` branch. Submit PR and wait for merge before implementing new changes.
 
+## 🧹 Refactoring Agent
+
+- **When it runs**: On PR open/update (>50 lines changed), manual dispatch, and monthly schedule.
+- **What it enforces**: DRY, dead code cleanup, consolidation opportunities.
+- **Outputs**: `docs/reports/refactor-analysis.md` and a proposed `refactor/<scope>` branch.
+- **Policy hook**: Follows the “Refactoring Before Change” rules from the global policy.
+
 ---
 
 ## 📦 Wave-based Development
@@ -455,6 +462,7 @@ PR must include purpose of change, linked spec, linked bug IDs, documentation up
 * **Spend Guard Agent**: alert on spend increments and enforce daily caps ($10 daily limit)
 * **Metrics and Telemetry Agent**: write SLI events, weekly reports
 * **Research Agent**: evidence-based methodology and architecture analysis
+* **Refactoring Agent**: Detects DRY violations and dead code, recommends consolidations, and can create `refactor/<scope>` branches and PRs with a prioritized action list.
 
 ---
 

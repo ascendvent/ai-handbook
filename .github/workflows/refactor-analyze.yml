@@ -1,0 +1,35 @@
+name: refactor-analyze
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+  workflow_dispatch:
+  schedule:
+    - cron: "0 9 1 * *" # monthly, 09:00 UTC, day 1
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install ai-handbook
+        run: |
+          npm i -D @ascendvent/ai-handbook@^1
+
+      - name: Run Refactoring Agent (analysis)
+        env:
+          REPORT_PATH: docs/reports/refactor-analysis.md
+          INCLUDE: client/**,server/**,src/**
+          EXCLUDE: "**/node_modules/**,**/dist/**,**/build/**,**/.next/**,**/coverage/**,**/generated/**"
+        run: |
+          npx mcp__claude-flow__refactor_analyze
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: refactor-analysis
+          path: docs/reports/refactor-analysis.md

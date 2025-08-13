@@ -120,6 +120,7 @@ policy_sources:
 - **Anti-Urgency Protocols** – Prevent rushed implementations under pressure
 - **Agent-First Development** – Use automation before manual intervention
 - **Testing-First Methodology** – No code changes without passing tests
+- **Automated Refactoring Detection** – DRY violations, dead code, and architecture quality analysis
 - **Infinite Loop Prevention** – Specific patterns for React and callback stability
 - **Systematic Debugging** – Component → Hook → Dependency chain analysis
 

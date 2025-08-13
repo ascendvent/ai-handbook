@@ -1,0 +1,63 @@
+{
+    "$schema": "https://schema.claude-flow/agent.json",
+    "name": "Refactoring Agent",
+    "id": "refactoring-agent",
+    "version": "1.0.0",
+    "description": "Detects DRY violations, dead code, and consolidation opportunities; proposes refactor branches and PRs.",
+    "triggers": {
+        "auto": [
+            {
+                "when": "pre_spec_implementation"
+            },
+            {
+                "when": "pull_request_opened_or_synchronized",
+                "threshold_changed_lines": 50
+            },
+            {
+                "when": "scheduled",
+                "cron": "0 9 1 * *"
+            }
+        ],
+        "manual": [
+            {
+                "tool": "mcp__claude-flow__refactor_analyze"
+            }
+        ]
+    },
+    "capabilities": [
+        "dry_violation_detection",
+        "dead_code_analysis",
+        "arch_quality_scan",
+        "consolidation_recommendations",
+        "git_branch_create",
+        "pr_open_with_evidence"
+    ],
+    "config": {
+        "include": [
+            "client/**",
+            "server/**",
+            "src/**"
+        ],
+        "exclude": [
+            "**/node_modules/**",
+            "**/dist/**",
+            "**/build/**",
+            "**/.next/**",
+            "**/coverage/**",
+            "**/generated/**"
+        ],
+        "languages": [
+            "typescript",
+            "javascript",
+            "react"
+        ],
+        "severity_thresholds": {
+            "duplicate_code_tokens": 60,
+            "complexity_cyclomatic_warn": 15
+        }
+    },
+    "outputs": {
+        "report_path": "docs/reports/refactor-analysis.md",
+        "branch_prefix": "refactor/"
+    }
+}

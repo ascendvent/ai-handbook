@@ -29,6 +29,10 @@
     "prepare": "npm run test",
     "version": "echo $npm_package_version > VERSION.md && git add VERSION.md"
   },
+  "bin": {
+    "mcp__claude-flow__refactor_analyze": "tools/mcp/refactor-analyze.cjs",
+    "mcp__claude-flow__refactor_branch": "tools/mcp/refactor-branch.cjs"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/ascendvent/ai-handbook.git"

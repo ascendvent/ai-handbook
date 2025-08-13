@@ -9,7 +9,7 @@ Add to your `package.json`:
 ```json
 {
   "dependencies": {
-    "@ascendvent/ai-handbook": "github:ascendvent/ai-handbook#v1.0.0"
+    "@ascendvent/ai-handbook": "github:ascendvent/ai-handbook#v1.1.1"
   }
 }
 ```

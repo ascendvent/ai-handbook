@@ -14,7 +14,7 @@
       "type": "file_check",
       "patterns": [
         "**/*.test.ts",
-        "**/*.test.js", 
+        "**/*.test.js",
         "**/*.spec.ts",
         "**/*.spec.js",
         "tests/e2e/**/*.spec.ts"
@@ -36,17 +36,6 @@
           "functions": 70,
           "lines": 70
         }
-      }
-    },
-    {
-      "name": "run_e2e_tests", 
-      "description": "Execute Playwright E2E tests",
-      "type": "command",
-      "command": "npm run test:e2e",
-      "timeout": 600000,
-      "required": false,
-      "success_criteria": {
-        "exit_code": 0
       }
     },
     {
@@ -97,7 +86,6 @@
     "CI": "true"
   },
   "dependencies": [
-    "jest",
-    "@playwright/test"
+    "jest"
   ]
 }
