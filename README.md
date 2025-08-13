@@ -30,6 +30,14 @@ Add to your `package.json`:
 }
 ```
 
+**Current Approach:** Direct GitHub installation ensures secure access using existing GitHub repository permissions.
+
+**Enterprise Scaling Note:** For larger teams or enhanced security requirements, consider migrating to:
+- **Artifactory/Nexus** - Enterprise npm registries with advanced security scanning
+- **AWS CodeArtifact** - Managed registry with IAM integration  
+- **GitHub Package Registry** - If staying within GitHub ecosystem
+- **Verdaccio** - Self-hosted lightweight registry
+
 See [INSTALLATION.md](./INSTALLATION.md) for detailed setup instructions.
 
 ### Initial Setup
