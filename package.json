@@ -18,8 +18,10 @@
     "CLAUDE_GLOBAL.md",
     "playbooks/",
     "agents/",
+    ".claude-flow/",
     "templates/",
     "scripts/",
+    "tools/",
     "README.md",
     "CHANGELOG.md",
     "VERSION.md"

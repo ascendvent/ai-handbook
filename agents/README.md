@@ -2,7 +2,19 @@
 
 **Automated guardrail enforcement across all Ascendvent LLC projects**
 
-These agents automatically enforce the policies defined in this handbook across every project that inherits from `ascendvent/ai-handbook`. They run via Claude Flow and ensure consistent AI-assisted development standards company-wide.
+These agents automatically enforce the policies defined in this handbook across every project that inherits from `@ascendvent/ai-handbook`. They run via Claude Flow and ensure consistent AI-assisted development standards company-wide.
+
+## Installation & Usage
+
+When you install this package, the actual agent definitions are located in `.claude-flow/agents/` directory. This documentation provides an overview of available agents.
+
+```bash
+npm install @ascendvent/ai-handbook
+```
+
+Agent files will be available at:
+- `node_modules/@ascendvent/ai-handbook/.claude-flow/agents/*.agent.json`
+- MCP tools: `node_modules/@ascendvent/ai-handbook/tools/mcp/`
 
 ## Core Enforcement Agents
 
