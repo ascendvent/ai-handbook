@@ -10,3 +10,6 @@ node_modules/
 .npmignore
 
 # Keep only essential files for package distribution
+# Force include .claude-flow directory and all contents
+!/.claude-flow/
+!/.claude-flow/**/*
