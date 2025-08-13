@@ -44,8 +44,16 @@ jobs:
               console.error('Package name must start with @ascendvent/');
               process.exit(1);
             }
-            if (!pkg.private) {
-              console.error('Package must be private');
+            if (!pkg.publishConfig || pkg.publishConfig.registry !== 'https://npm.pkg.github.com/') {
+              console.error('Package must be configured for GitHub Package Registry');
+              process.exit(1);
+            }
+            if (!pkg.publishConfig.access || pkg.publishConfig.access !== 'restricted') {
+              console.error('Package access must be restricted');
+              process.exit(1);
+            }
+            if (pkg.private === true) {
+              console.error('Remove private field for GitHub Package Registry publishing');
               process.exit(1);
             }
             console.log('Package.json validation passed ✓');
