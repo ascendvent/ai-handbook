@@ -36,6 +36,26 @@ Any deviation requires stopping work and returning to proper methodology.
 
 If an agent exists for the task **use the agent**.
 
+**Agent Inheritance System**
+
+Projects automatically inherit agents from `@ascendvent/ai-handbook` via the inheritance declaration:
+```yaml
+# In your project's CLAUDE.md
+Inherits: @ascendvent/ai-handbook@v1.2.2
+```
+
+**Available Inherited Agents**
+
+* **PR Checklist Agent** - Tests updated, docs updated, linked spec present
+* **Test Enforcement Agent** - Coverage bar enforcement, test quality gates  
+* **Build and Config Agent** - Build config validation, Docker health checks
+* **Spend Guard Agent** - AI API cost thresholds and daily budget caps
+* **Metrics and Telemetry Agent** - SLI events collection and performance reports
+* **Research Agent** - Evidence-based methodology and architecture analysis
+* **Security Monitor Agent** - Security scan results, critical issue hotfixes
+* **Release Notes Agent** - Automated CHANGELOG updates from PR patterns
+* **Refactoring Agent** - DRY violations, dead code detection, architecture quality
+
 **Research Agent (SPEC-009)**
 
 * Evidence-based methodology research
@@ -53,7 +73,7 @@ If an agent exists for the task **use the agent**.
 **Agent Usage Protocol**
 
 1. Identify task type
-2. Check agent availability
+2. Check agent availability (inherited agents are automatically available)
 3. Use the appropriate agent with proper parameters
 4. Proceed directly only if no agent covers the task type
 

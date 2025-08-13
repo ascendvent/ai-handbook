@@ -24,7 +24,8 @@
     "tools/",
     "README.md",
     "CHANGELOG.md",
-    "VERSION.md"
+    "VERSION.md",
+    "config.json"
   ],
   "scripts": {
     "test": "node scripts/validator/validate-policy.cjs",

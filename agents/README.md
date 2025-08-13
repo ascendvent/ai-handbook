@@ -4,15 +4,22 @@
 
 These agents automatically enforce the policies defined in this handbook across every project that inherits from `@ascendvent/ai-handbook`. They run via Claude Flow and ensure consistent AI-assisted development standards company-wide.
 
-## Installation & Usage
+## Agent Discovery & Inheritance
 
-When you install this package, the actual agent definitions are located in `.claude-flow/agents/` directory. This documentation provides an overview of available agents.
+### Automatic Inheritance (Default)
+When you install `@ascendvent/ai-handbook`, all agents are automatically available to Claude Code through the inheritance system. No manual configuration required.
 
 ```bash
 npm install @ascendvent/ai-handbook
 ```
 
-Agent files will be available at:
+**How It Works:**
+1. Add `Inherits: @ascendvent/ai-handbook@v1.2.2` to your project's CLAUDE.md
+2. Claude Code automatically discovers agents from `node_modules/@ascendvent/ai-handbook/.claude-flow/agents/`
+3. Agents merge with any local project-specific agents
+4. All agents become available via the Task tool
+
+**Agent files are located at:**
 - `node_modules/@ascendvent/ai-handbook/.claude-flow/agents/*.agent.json`
 - MCP tools: `node_modules/@ascendvent/ai-handbook/tools/mcp/`
 
@@ -35,6 +42,19 @@ Agent files will be available at:
 - **Version-controlled enforcement** based on the handbook version each project pins to
 - **Stack-aware validation** applies only relevant playbook rules (React hooks for React projects, etc.)
 - **Cross-project consistency** ensures uniform AI development standards across Ascendvent LLC
+
+### Available Inherited Agents
+[Current agent table above shows all available agents]
+
+### Local Project Agents
+You can add project-specific agents to `.claude-flow/agents/` that work alongside inherited agents.
+
+### Troubleshooting
+If agents aren't working:
+1. Verify `Inherits: @ascendvent/ai-handbook@vX.X.X` in CLAUDE.md
+2. Remove any manual path declarations from CLAUDE.md
+3. Check that `.claude-flow/claude-flow.config.json` doesn't reference deleted local agent files
+4. Ensure the package is properly installed: `npm list @ascendvent/ai-handbook`
 
 ## Agent Behavior Standards
 All agents follow the same systematic protocols defined in `POLICY.md`:

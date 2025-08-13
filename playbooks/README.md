@@ -23,7 +23,7 @@ Stack-specific AI development patterns and best practices for Ascendvent LLC pro
 Include relevant playbooks in your project's `CLAUDE.md`:
 
 ```yaml
-Inherits: @ascendvent/ai-handbook@v1.2.1
+Inherits: @ascendvent/ai-handbook@v1.2.2
 policy_sources:
   - POLICY.md                    # Always required
   - playbooks/REACT-HOOKS.md     # Only if React project

@@ -1,0 +1,112 @@
+{
+    "version": "1.0.0",
+    "memory": {
+        "retention": "30d",
+        "maxSize": "1GB"
+    },
+    "settings": {
+        "baseDirectory": ".",
+        "docsDirectory": "./docs",
+        "bugsDirectory": "./docs/bugs",
+        "specsDirectory": "./docs/specs",
+        "agentsDirectory": "./agents",
+        "logLevel": "info",
+        "githubIntegration": {
+            "enabled": true,
+            "checkRuns": true,
+            "prComments": true
+        },
+        "notifications": {
+            "onFailure": true,
+            "onSuccess": false
+        }
+    },
+    "agents": [
+        {
+            "name": "PR Checklist Agent",
+            "file": "./agents/pr-checklist.agent.json",
+            "triggers": [
+                "pull_request.opened",
+                "pull_request.synchronize",
+                "pull_request.edited"
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Release Notes Agent",
+            "file": "./agents/release-notes.agent.json",
+            "triggers": [
+                "pull_request.closed.merged:develop",
+                "pull_request.closed.merged:main"
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Security Monitor Agent",
+            "file": "./agents/security-monitor.agent.json",
+            "triggers": [
+                "workflow_run.completed:security-scan.yml"
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Test Enforcement Agent",
+            "file": "./agents/test-enforcement.agent.json",
+            "triggers": [
+                "manual",
+                "pull_request.opened",
+                "pull_request.synchronize",
+                "push:feature/*"
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Local Dev Build Agent",
+            "file": "./agents/local-build.agent.json",
+            "triggers": [
+                "manual",
+                "pull_request.opened",
+                "pull_request.synchronize",
+                "push:feature/*"
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Build & Config Validation Agent",
+            "file": "./agents/build-config.agent.json",
+            "triggers": [
+                "pull_request.opened",
+                "pull_request.synchronize"
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Spend Guard Agent",
+            "file": "./agents/spend-guard.agent.json",
+            "triggers": [
+                "workflow_run.completed",
+                "schedule:hourly"
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Metrics and Telemetry Agent",
+            "file": "./agents/metrics.agent.json",
+            "triggers": [
+                "workflow_run.completed",
+                "schedule:weekly"
+            ],
+            "enabled": true
+        },
+        {
+            "name": "Refactoring Agent",
+            "file": "./agents/refactoring-agent.agent.json",
+            "triggers": [
+                "pull_request.opened",
+                "pull_request.synchronize",
+                "schedule:monthly"
+            ],
+            "enabled": true
+        }
+    ]
+}

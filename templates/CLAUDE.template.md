@@ -1,18 +1,15 @@
 # CLAUDE.md – Project Overlay
 
 Scope: Project-specific rules only  
-Inherits: ascendvent/ai-handbook@v1.2.0
+Inherits: @ascendvent/ai-handbook@v1.2.2
 
 policy_sources:
-  - source: github:ascendvent/ai-handbook
-    version: v1.2.0
-    includes:
-      - POLICY.md
-      # Add only the stack playbooks this project uses, for example:
-      # - PLAYBOOKS/DOCKER.md
-      # - PLAYBOOKS/TYPESCRIPT.md
-      # - PLAYBOOKS/REACT-HOOKS.md
-      # - PLAYBOOKS/POSTGRES.md
+  - POLICY.md
+  # Add only the stack playbooks this project uses, for example:
+  # - playbooks/DOCKER.md
+  # - playbooks/TYPESCRIPT.md
+  # - playbooks/REACT-HOOKS.md
+  # - playbooks/POSTGRES.md
 
 Project-specific rules:
 - Stack declaration here. Example: Next.js + TypeScript + Postgres.
