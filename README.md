@@ -25,7 +25,7 @@ Add to your `package.json`:
 ```json
 {
   "dependencies": {
-    "@ascendvent/ai-handbook": "github:ascendvent/ai-handbook#v1.0.0"
+    "@ascendvent/ai-handbook": "github:ascendvent/ai-handbook#v1.1.0"
   }
 }
 ```
@@ -55,7 +55,7 @@ const typescript = handbook.getPlaybook('TYPESCRIPT.md');
 ## Inheritance Pattern
 ```yaml
 # In your project's CLAUDE.md
-Inherits: ascendvent/ai-handbook@v1.0.0
+Inherits: ascendvent/ai-handbook@v1.1.0
 policy_sources:
   - POLICY.md                    # Always required
   - PLAYBOOKS/REACT-HOOKS.md     # Only if React project
