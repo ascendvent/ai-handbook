@@ -23,13 +23,22 @@ This repository serves as the central policy and standards hub that defines how 
 
 ### Developer Setup
 
-1. **Configure npm for GitHub Package Registry** (one-time setup):
+**Option A: Project-Level Configuration (Recommended)**
+
+1. **Create `.npmrc` in your project directory**:
    ```bash
-   echo "@ascendvent:registry=https://npm.pkg.github.com/" >> ~/.npmrc
-   echo "//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN" >> ~/.npmrc
+   # In your project root
+   echo "@ascendvent:registry=https://npm.pkg.github.com/" > .npmrc
+   echo "//npm.pkg.github.com/:_authToken=\${NPM_TOKEN}" >> .npmrc
    ```
 
-2. **Add to your `package.json`**:
+2. **Set environment variable** (secure, doesn't persist token):
+   ```bash
+   export NPM_TOKEN="your_github_token_here"
+   npm install
+   ```
+
+3. **Add to your `package.json`**:
    ```json
    {
      "dependencies": {
@@ -38,10 +47,28 @@ This repository serves as the central policy and standards hub that defines how 
    }
    ```
 
-3. **Install normally**:
-   ```bash
-   npm install
-   ```
+**Option B: Global Configuration** (less secure, but convenient):
+```bash
+echo "@ascendvent:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+echo "//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN" >> ~/.npmrc
+npm install
+```
+
+### Security Best Practices
+
+**GitHub Token Setup:**
+1. Create token at: https://github.com/settings/tokens
+2. **Minimum Required Permissions:** `read:packages`
+3. **Expiration:** Set reasonable expiry (90 days recommended)
+4. **Scope:** Only grant access to necessary orgs
+
+**🔒 Security Recommendations:**
+- ✅ Use project-level `.npmrc` with environment variables
+- ✅ Add `.npmrc` to `.gitignore` (never commit tokens)
+- ✅ Use token rotation policy
+- ✅ Audit token access regularly
+- ❌ Don't store tokens in plain text globally
+- ❌ Don't commit `.npmrc` with tokens to repositories
 
 **Current Approach:** GitHub Package Registry with restricted access - only Ascendvent GitHub org members can install.
 
