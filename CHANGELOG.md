@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.2.0 – 2025-08-13
+
+### Fixed
+- **Version Consistency**: Updated all version references across files to maintain consistency
+- **Documentation**: Fixed POLICY.md self-references and version discrepancies in examples
+- **Template Updates**: Updated CLAUDE.template.md and workflow examples to use current version
+
+### Improved
+- **Version Management**: Standardized all version references to v1.2.0 across documentation
+- **Installation Guide**: Updated all package installation examples with current version
+- **Workflow Documentation**: Updated GitHub Actions examples with correct version tags
+
 ## v1.1.1 – 2025-08-13
 
 ### Added

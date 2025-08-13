@@ -42,7 +42,7 @@ This repository serves as the central policy and standards hub that defines how 
    ```json
    {
      "dependencies": {
-       "@ascendvent/ai-handbook": "^1.1.0"
+       "@ascendvent/ai-handbook": "^1.2.0"
      }
    }
    ```
@@ -102,7 +102,7 @@ const typescript = handbook.getPlaybook('TYPESCRIPT.md');
 ## Inheritance Pattern
 ```yaml
 # In your project's CLAUDE.md
-Inherits: ascendvent/ai-handbook@v1.1.0
+Inherits: ascendvent/ai-handbook@v1.2.0
 policy_sources:
   - POLICY.md                    # Always required
   - PLAYBOOKS/REACT-HOOKS.md     # Only if React project
@@ -111,7 +111,7 @@ policy_sources:
 ```
 
 ## Versioning & Updates
-- Projects pin to specific handbook versions (`v1.0.0`, `v1.1.0`, etc.)
+- Projects pin to specific handbook versions (`v1.0.0`, `v1.2.0`, etc.)
 - Version updates require deliberate review of policy changes
 - Automated agents enforce compliance across all inherited projects
 - Changes to core policies require `policy-change` PR labels and human approval

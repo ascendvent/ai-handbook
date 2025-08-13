@@ -6,7 +6,7 @@
 
 These GitHub Actions workflows are reusable CI pipelines designed to enforce global engineering policy, testing standards, and code quality across all Ascendvent projects.
 
-Projects should reference these workflows by version tag (e.g., `@v1.0.0`) in their own `.github/workflows/*.yml` files.
+Projects should reference these workflows by version tag (e.g., `@v1.2.0`) in their own `.github/workflows/*.yml` files.
 
 ---
 
@@ -24,7 +24,7 @@ Validates that the project’s `CLAUDE.md`:
 ```yaml
 jobs:
   policy:
-    uses: ascendvent/ai-handbook/.github/workflows/policy-validate.yml@v1.0.0
+    uses: ascendvent/ai-handbook/.github/workflows/policy-validate.yml@v1.2.0
 ````
 
 ---
@@ -45,7 +45,7 @@ Runs the project’s build and test suite with coverage, using project-provided 
 ```yaml
 jobs:
   tests:
-    uses: ascendvent/ai-handbook/.github/workflows/build-and-test.yml@v1.0.0
+    uses: ascendvent/ai-handbook/.github/workflows/build-and-test.yml@v1.2.0
     with:
       test_command: npm test -- --coverage
       node_version: "20"
@@ -70,7 +70,7 @@ Runs linting and optional formatting checks.
 ```yaml
 jobs:
   lint:
-    uses: ascendvent/ai-handbook/.github/workflows/lint-and-format.yml@v1.0.0
+    uses: ascendvent/ai-handbook/.github/workflows/lint-and-format.yml@v1.2.0
     with:
       lint_command: npm run lint
       format_command: npm run format:check
@@ -82,7 +82,7 @@ jobs:
 
 Always pin to a version tag:
 
-* ✅ Good: `ascendvent/ai-handbook/.github/workflows/build-and-test.yml@v1.0.0`
+* ✅ Good: `ascendvent/ai-handbook/.github/workflows/build-and-test.yml@v1.2.0`
 * ❌ Bad: `@main` (may break without warning)
 
 ---

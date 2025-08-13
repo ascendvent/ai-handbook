@@ -1,11 +1,11 @@
 # CLAUDE.md – Project Overlay
 
 Scope: Project-specific rules only  
-Inherits: ascendvent/ai-handbook@v1.0.0
+Inherits: ascendvent/ai-handbook@v1.2.0
 
 policy_sources:
   - source: github:ascendvent/ai-handbook
-    version: v1.0.0
+    version: v1.2.0
     includes:
       - POLICY.md
       # Add only the stack playbooks this project uses, for example:

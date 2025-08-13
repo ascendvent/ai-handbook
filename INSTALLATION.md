@@ -9,7 +9,7 @@ Add to your `package.json`:
 ```json
 {
   "dependencies": {
-    "@ascendvent/ai-handbook": "github:ascendvent/ai-handbook#v1.1.1"
+    "@ascendvent/ai-handbook": "github:ascendvent/ai-handbook#v1.2.0"
   }
 }
 ```
@@ -80,7 +80,7 @@ fs.writeFileSync('./CLAUDE.md', template);
 
 2. Edit your `CLAUDE.md` to inherit from this handbook:
 ```markdown
-# Inherits: @ascendvent/ai-handbook@v1.0.0
+# Inherits: @ascendvent/ai-handbook@v1.2.0
 
 # Your Project Name
 
@@ -112,7 +112,7 @@ To update to a new version of the handbook:
 ```json
 {
   "dependencies": {
-    "@ascendvent/ai-handbook": "github:ascendvent/ai-handbook#v1.1.0"
+    "@ascendvent/ai-handbook": "github:ascendvent/ai-handbook#v1.2.0"
   }
 }
 ```
@@ -124,7 +124,7 @@ npm install
 
 3. Review and update your `CLAUDE.md` inheritance version:
 ```markdown
-# Inherits: @ascendvent/ai-handbook@v1.1.0
+# Inherits: @ascendvent/ai-handbook@v1.2.0
 ```
 
 ## Available Exports
@@ -146,7 +146,7 @@ If you get authentication errors:
 
 1. Create a GitHub Personal Access Token with `packages:read` permission
 2. Configure npm: `npm config set //npm.pkg.github.com/:_authToken YOUR_TOKEN`
-3. Or use the direct GitHub method: `"@ascendvent/ai-handbook": "github:ascendvent/ai-handbook#v1.0.0"`
+3. Or use the direct GitHub method: `"@ascendvent/ai-handbook": "github:ascendvent/ai-handbook#v1.2.0"`
 
 ### Package Not Found
 
