@@ -1,0 +1,128 @@
+{
+  "name": "Spend Guard Agent",
+  "version": "1.0.0",
+  "description": "Monitors API spend in fixed increments and prevents runaway costs with budget controls",
+  "triggers": [
+    "api_usage_capture",
+    "pull_request",
+    "schedule:hourly"
+  ],
+  "config": {
+    "daily_budget_usd": 10,
+    "alert_increment_usd": 5,
+    "soft_cap_percent": 80,
+    "reset_schedule": "0 0 * * *",
+    "timezone": "UTC"
+  },
+  "environment": {
+    "SPEND_PRICE_TABLE_JSON": "${secrets.SPEND_PRICE_TABLE_JSON}",
+    "SPEND_DB_URL": "${secrets.SPEND_DB_URL}",
+    "SLACK_WEBHOOK_URL": "${secrets.SLACK_WEBHOOK_URL}",
+    "DAILY_BUDGET_USD": "10"
+  },
+  "actions": [
+    {
+      "name": "compute_api_cost",
+      "description": "Calculate cost from API usage data using model pricing table",
+      "type": "cost_calculation",
+      "formula": "input_price_per_million * input_tokens / 1_000_000 + output_price_per_million * output_tokens / 1_000_000",
+      "models": {
+        "claude-3-5-sonnet": {
+          "input_per_million": 3.00,
+          "output_per_million": 15.00
+        },
+        "claude-3-5-haiku": {
+          "input_per_million": 1.00,
+          "output_per_million": 5.00
+        }
+      }
+    },
+    {
+      "name": "update_spend_totals",
+      "description": "Accumulate spend totals per environment and branch",
+      "type": "database_update",
+      "table": "spend_totals",
+      "operation": "upsert",
+      "fields": [
+        "env",
+        "total_usd",
+        "next_threshold_usd"
+      ]
+    },
+    {
+      "name": "check_spending_thresholds",
+      "description": "Monitor spending against configured thresholds",
+      "type": "threshold_check",
+      "conditions": [
+        {
+          "name": "increment_alert",
+          "condition": "total_usd >= next_threshold_usd",
+          "action": "send_slack_notification",
+          "message": ":money_with_wings: Ascendvent spend alert\\nENV=${env} THRESHOLD=$${next_threshold_usd} TOTAL=$${total_usd}\\nTop contributors in last hour: ${top_contributors}"
+        },
+        {
+          "name": "soft_cap_warning",
+          "condition": "total_usd >= (daily_budget_usd * 0.8)",
+          "action": "send_slack_notification",
+          "message": ":warning: Approaching daily spend limit\\nENV=${env} USAGE=$${total_usd}/$${daily_budget_usd} (${percent_used}%)\\nSoft cap reached - consider reviewing usage"
+        },
+        {
+          "name": "hard_cap_enforcement",
+          "condition": "total_usd >= daily_budget_usd",
+          "action": "disable_api_calls",
+          "message": ":octagonal_sign: Daily spend limit exceeded\\nENV=${env} LIMIT=$${daily_budget_usd} TOTAL=$${total_usd}\\nAPI calls disabled until next UTC day"
+        }
+      ]
+    },
+    {
+      "name": "update_next_threshold",
+      "description": "Bump threshold to next $5 increment when reached",
+      "type": "threshold_update",
+      "logic": "while (total_usd >= next_threshold_usd) { next_threshold_usd += 5 }"
+    },
+    {
+      "name": "daily_reset",
+      "description": "Reset spend totals and thresholds at midnight UTC",
+      "type": "scheduled_reset",
+      "schedule": "0 0 * * *",
+      "reset_fields": [
+        "total_usd",
+        "next_threshold_usd"
+      ],
+      "reset_values": {
+        "total_usd": 0,
+        "next_threshold_usd": 5
+      }
+    }
+  ],
+  "database_schema": {
+    "spend_totals": {
+      "env": "text primary key",
+      "total_usd": "numeric(12,6) not null default 0",
+      "next_threshold_usd": "numeric(12,2) not null default 5",
+      "last_updated": "timestamptz default now()"
+    }
+  },
+  "notifications": {
+    "slack": {
+      "webhook_url": "${env.SLACK_WEBHOOK_URL}",
+      "format": "markdown",
+      "include_environment": true
+    }
+  },
+  "success_criteria": {
+    "cost_tracked": true,
+    "thresholds_enforced": true,
+    "notifications_sent": true
+  },
+  "failure_conditions": [
+    {
+      "condition": "database_unavailable",
+      "message": "Cannot track spending - database connection failed"
+    },
+    {
+      "condition": "invalid_pricing_data",
+      "message": "Spend calculation failed - invalid pricing table"
+    }
+  ]
+}

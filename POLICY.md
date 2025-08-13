@@ -452,7 +452,7 @@ PR must include purpose of change, linked spec, linked bug IDs, documentation up
 * **Local Build Agent**: ensure stack builds are deployment ready
 * **Build and Config Validation Agent**: validate build and environment config
 * **Test Enforcement Agent**: verify presence of tests, enforce coverage bar
-* **Spend Guard Agent**: alert on spend increments and enforce daily caps
+* **Spend Guard Agent**: alert on spend increments and enforce daily caps ($10 daily limit)
 * **Metrics and Telemetry Agent**: write SLI events, weekly reports
 * **Research Agent**: evidence-based methodology and architecture analysis
 

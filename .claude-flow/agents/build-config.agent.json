@@ -1,0 +1,53 @@
+{
+    "name": "Build & Config Validation Agent",
+    "description": "Validates Docker build and environment configuration before merge.",
+    "triggers": [
+        "pull_request.opened",
+        "pull_request.synchronize"
+    ],
+    "actions": [
+        {
+            "type": "run_shell_command",
+            "command": "docker-compose -f docker-compose.yml config",
+            "fail_on_error": true,
+            "message": "❌ Docker compose configuration validation failed.",
+            "on_fail": {
+                "log_file": "./docs/bugs/docker-config-validation.txt"
+            }
+        },
+        {
+            "type": "run_shell_command", 
+            "command": "docker-compose build --no-cache --quiet",
+            "fail_on_error": true,
+            "message": "❌ Docker build failed during PR validation.",
+            "on_fail": {
+                "log_file": "./docs/bugs/docker-build-validation.txt"
+            }
+        },
+        {
+            "type": "check_files_exist",
+            "files": [
+                "docker-compose.yml",
+                "Dockerfile",
+                "package.json"
+            ],
+            "fail_on_error": true,
+            "message": "❌ Missing required build configuration files."
+        },
+        {
+            "type": "run_shell_command",
+            "command": "npm run check",
+            "fail_on_error": false,
+            "message": "⚠️  TypeScript compilation issues found (non-blocking).",
+            "on_fail": {
+                "log_file": "./docs/bugs/typescript-check.txt"
+            }
+        }
+    ],
+    "on_success": {
+        "message": "✅ Build and configuration validation passed."
+    },
+    "on_fail": {
+        "message": "❌ Build or configuration validation failed. Check logs in /docs/bugs/ for details."
+    }
+}

@@ -1,0 +1,103 @@
+{
+  "name": "Test Enforcement Agent",
+  "version": "1.0.0",
+  "description": "Ensures every feature branch includes adequate test coverage before merging",
+  "triggers": [
+    "manual",
+    "pull_request",
+    "push:feature/*"
+  ],
+  "actions": [
+    {
+      "name": "check_test_files",
+      "description": "Verify presence of unit tests and E2E tests",
+      "type": "file_check",
+      "patterns": [
+        "**/*.test.ts",
+        "**/*.test.js", 
+        "**/*.spec.ts",
+        "**/*.spec.js",
+        "tests/e2e/**/*.spec.ts"
+      ],
+      "min_required": 1
+    },
+    {
+      "name": "run_unit_tests",
+      "description": "Execute Jest unit tests with coverage",
+      "type": "command",
+      "command": "npm test -- --coverage --passWithNoTests",
+      "timeout": 300000,
+      "required": true,
+      "success_criteria": {
+        "exit_code": 0,
+        "coverage_threshold": {
+          "statements": 70,
+          "branches": 70,
+          "functions": 70,
+          "lines": 70
+        }
+      }
+    },
+    {
+      "name": "run_e2e_tests", 
+      "description": "Execute Playwright E2E tests",
+      "type": "command",
+      "command": "npm run test:e2e",
+      "timeout": 600000,
+      "required": false,
+      "success_criteria": {
+        "exit_code": 0
+      }
+    },
+    {
+      "name": "coverage_analysis",
+      "description": "Analyze test coverage and generate reports",
+      "type": "analysis",
+      "thresholds": {
+        "fail": 70,
+        "warn": 80,
+        "pass": 80
+      },
+      "output": {
+        "report_file": "docs/test-reports/{branch}-coverage.md",
+        "format": "markdown"
+      }
+    }
+  ],
+  "outputs": [
+    {
+      "name": "coverage_report",
+      "path": "coverage/lcov-report/index.html",
+      "type": "html"
+    },
+    {
+      "name": "test_results",
+      "path": "docs/test-reports/{branch}.md",
+      "type": "markdown"
+    }
+  ],
+  "failure_conditions": [
+    {
+      "condition": "coverage_below_threshold",
+      "threshold": 70,
+      "message": "Test coverage is below 70%. Please add more tests."
+    },
+    {
+      "condition": "test_failure",
+      "message": "One or more tests failed. Please fix failing tests before merging."
+    },
+    {
+      "condition": "no_tests_found",
+      "message": "No test files found. Please add appropriate unit tests."
+    }
+  ],
+  "success_message": "✅ All tests passed with adequate coverage ({coverage}%)",
+  "environment": {
+    "NODE_ENV": "test",
+    "CI": "true"
+  },
+  "dependencies": [
+    "jest",
+    "@playwright/test"
+  ]
+}
