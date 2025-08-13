@@ -11,9 +11,20 @@ if (!pkg.name.startsWith('@ascendvent/')) {
   process.exit(1);
 }
 
-// Check that package is marked private (no accidental publishing)
-if (!pkg.private) {
-  console.error('❌ Package must be private to prevent accidental publishing');
+// Check GitHub Package Registry configuration
+if (!pkg.publishConfig || pkg.publishConfig.registry !== 'https://npm.pkg.github.com/') {
+  console.error('❌ Package must be configured for GitHub Package Registry');
+  process.exit(1);
+}
+
+if (!pkg.publishConfig.access || pkg.publishConfig.access !== 'restricted') {
+  console.error('❌ Package access must be restricted');
+  process.exit(1);
+}
+
+// Check that private is NOT set (GitHub Package Registry doesn't use private: true)
+if (pkg.private === true) {
+  console.error('❌ Remove "private": true for GitHub Package Registry');
   process.exit(1);
 }
 
@@ -32,6 +43,7 @@ if (missingFiles.length > 0) {
 }
 
 console.log('✅ Package configuration validation passed');
-console.log(`✅ ${pkg.name}@${pkg.version} ready for direct GitHub installation`);
-console.log('✅ Install via: "github:ascendvent/ai-handbook#v1.1.0"');
-console.log('✅ Secure access - requires GitHub repo permissions');
+console.log(`✅ ${pkg.name}@${pkg.version} ready for GitHub Package Registry`);
+console.log('✅ Publishes to: https://npm.pkg.github.com/');
+console.log('✅ Install via: npm install @ascendvent/ai-handbook');
+console.log('✅ Secure access - requires GitHub org permissions');

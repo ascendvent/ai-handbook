@@ -21,21 +21,33 @@ This repository serves as the central policy and standards hub that defines how 
 
 ### Installation
 
-Add to your `package.json`:
-```json
-{
-  "dependencies": {
-    "@ascendvent/ai-handbook": "github:ascendvent/ai-handbook#v1.1.0"
-  }
-}
-```
+### Developer Setup
 
-**Current Approach:** Direct GitHub installation ensures secure access using existing GitHub repository permissions.
+1. **Configure npm for GitHub Package Registry** (one-time setup):
+   ```bash
+   echo "@ascendvent:registry=https://npm.pkg.github.com/" >> ~/.npmrc
+   echo "//npm.pkg.github.com/:_authToken=YOUR_GITHUB_TOKEN" >> ~/.npmrc
+   ```
+
+2. **Add to your `package.json`**:
+   ```json
+   {
+     "dependencies": {
+       "@ascendvent/ai-handbook": "^1.1.0"
+     }
+   }
+   ```
+
+3. **Install normally**:
+   ```bash
+   npm install
+   ```
+
+**Current Approach:** GitHub Package Registry with restricted access - only Ascendvent GitHub org members can install.
 
 **Enterprise Scaling Note:** For larger teams or enhanced security requirements, consider migrating to:
 - **Artifactory/Nexus** - Enterprise npm registries with advanced security scanning
 - **AWS CodeArtifact** - Managed registry with IAM integration  
-- **GitHub Package Registry** - If staying within GitHub ecosystem
 - **Verdaccio** - Self-hosted lightweight registry
 
 See [INSTALLATION.md](./INSTALLATION.md) for detailed setup instructions.
