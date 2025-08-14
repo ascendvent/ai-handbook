@@ -30,7 +30,7 @@ jobs:
           echo "Checking required files exist..."
           test -f package.json || exit 1
           test -f index.js || exit 1
-          test -f AGENT_INHERITANCE.md || exit 1
+          test -f AGENT-INHERITANCE.md || exit 1
           test -f CLAUDE_GLOBAL.md || exit 1
           test -d templates || exit 1
           echo "All required files present ✓"
