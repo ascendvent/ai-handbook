@@ -5,27 +5,22 @@
   "main": "index.js",
   "exports": {
     ".": "./index.js",
-    "./policy": "./POLICY.md",
     "./claude-global": "./CLAUDE_GLOBAL.md",
-    "./playbooks/*": "./playbooks/*",
     "./agents/*": "./agents/*",
     "./templates/*": "./templates/*",
-    "./scripts/*": "./scripts/*"
+    "./scripts/*": "./scripts/*",
+    "./agent-inheritance": "./AGENT-INHERITANCE.md"
   },
   "files": [
     "index.js",
-    "POLICY.md",
     "CLAUDE_GLOBAL.md",
-    "playbooks/",
+    "AGENT-INHERITANCE.md",
     "agents/",
-    ".claude-flow/",
     "templates/",
     "scripts/",
-    "tools/",
     "README.md",
     "CHANGELOG.md",
-    "VERSION.md",
-    "config.json"
+    "VERSION.md"
   ],
   "scripts": {
     "test": "node scripts/validator/validate-policy.cjs",
@@ -33,8 +28,7 @@
     "version": "echo $npm_package_version > VERSION.md && git add VERSION.md"
   },
   "bin": {
-    "mcp__claude-flow__refactor_analyze": "tools/mcp/refactor-analyze.cjs",
-    "mcp__claude-flow__refactor_branch": "tools/mcp/refactor-branch.cjs"
+    "inherit-agents": "scripts/inherit-agents.js"
   },
   "repository": {
     "type": "git",

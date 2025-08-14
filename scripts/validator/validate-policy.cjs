@@ -35,7 +35,7 @@ if (pkg.license !== 'UNLICENSED') {
 }
 
 // Validate files array for proper distribution
-const requiredFiles = ['index.js', 'POLICY.md', 'CLAUDE_GLOBAL.md', 'playbooks/', 'agents/', 'templates/', 'scripts/'];
+const requiredFiles = ['index.js', 'CLAUDE_GLOBAL.md', 'agents/', 'templates/', 'scripts/'];
 const missingFiles = requiredFiles.filter(file => !pkg.files.includes(file));
 if (missingFiles.length > 0) {
   console.error(`❌ Missing required files in package.json: ${missingFiles.join(', ')}`);
