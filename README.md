@@ -42,24 +42,36 @@ Central policy and standards hub defining how Claude and other AI agents operate
 
 ## Installation
 
-**1. Install the package**
+**1. Configure NPM registry**
 ```bash
-# In project root
+# In project root, create or update .npmrc
 echo "@ascendvent:registry=https://npm.pkg.github.com/" > .npmrc
 echo "//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> .npmrc
-
-export NPM_TOKEN="your_github_token_here"
-npm install @ascendvent/ai-handbook
 ```
 
-**2. Inherit agents locally**
+**2. Add to package.json**
+```json
+{
+  "devDependencies": {
+    "@ascendvent/ai-handbook": "^1.3.0"
+  }
+}
+```
+
+**3. Install the package**
+```bash
+export NPM_TOKEN="your_github_token_here"
+npm install
+```
+
+**4. Inherit agents locally**
 ```bash
 npx inherit-agents
 ```
 
 This copies all global agents into your .claude/agents directory.
 
-**3. Add inheritance to CLAUDE.md**
+**5. Add inheritance to CLAUDE.md**
 ```
 Inherits: @ascendvent/ai-handbook
 ```
