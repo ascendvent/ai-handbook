@@ -53,7 +53,7 @@ echo "//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> .npmrc
 ```json
 {
   "devDependencies": {
-    "@ascendvent/ai-handbook": "^1.3.0"
+    "@ascendvent/ai-handbook": "^1.4.0"
   }
 }
 ```
