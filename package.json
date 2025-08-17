@@ -1,6 +1,6 @@
 {
   "name": "@ascendvent/ai-handbook",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Global AI Engineering Guardrails for Ascendvent LLC - Standards and protocols for AI-assisted development",
   "main": "index.js",
   "exports": {
