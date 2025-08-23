@@ -1,23 +1,26 @@
 # Claude Code Agents - Streamlined Development Team
 
-This directory contains 10 focused agents that cover the complete development spectrum without overlap or redundancy. Each agent has clear responsibilities and works seamlessly with others to provide comprehensive development support.
+This directory contains 11 focused agents that cover the complete development spectrum without overlap or redundancy. Each agent has clear responsibilities and works seamlessly with others to provide comprehensive development support.
 
 ## 🎯 Agent Overview
 
 Our streamlined agent team consists of:
 
-### **Core Development (4 agents)**
+### **Core Development (3 agents)**
 - **`development-agent`** - Full-stack React/Node.js/TypeScript implementation
 - **`quality-agent`** - Code analysis, refactoring, and review
 - **`test-agent`** - Comprehensive testing with TDD and coverage enforcement  
-- **`research-agent`** - Multi-domain research for evidence-based development
 
-### **Process & Methodology (2 agents)**
+### **Process & Methodology (3 agents)**
 - **`sparc-agent`** - SPARC methodology coordination (Spec → Pseudocode → Architecture → Refinement → Completion)
-- **`github-workflow`** - Complete GitHub workflow management (PRs, branches, validation)
+- **`tracking-agent`** - Planning and implementation alignment monitoring
+- **`blocker-escalation-agent`** - Systematic blocker and escalation decision making
 
-### **Operations & Support (4 agents)**  
+### **GitHub Integration (2 agents)**
+- **`github-workflow`** - Complete GitHub workflow management (PRs, branches, validation)
 - **`github-issues`** - Issue tracking and project management
+
+### **Operations & Support (3 agents)**  
 - **`build-monitor`** - Build validation, Docker, and CI/CD operations
 - **`security-ops`** - Security monitoring, spend control, and compliance
 - **`release-ops`** - Release management, versioning, and deployment
@@ -29,10 +32,11 @@ Our streamlined agent team consists of:
 | `development-agent` | React/Node.js/TS implementation | Read,Write,Edit,Bash | quality-agent, test-agent |
 | `quality-agent` | Code analysis & refactoring | Read,Grep,Glob,Edit | development-agent, test-agent |
 | `test-agent` | Testing & TDD enforcement | Read,Write,Bash,Grep | development-agent, quality-agent |
-| `research-agent` | Evidence-based research | Read,Write,WebSearch,WebFetch | All agents for context |
 | `sparc-agent` | Process methodology | Read,Write,Edit,TodoWrite | All development agents |
+| `tracking-agent` | Planning & alignment | Read,Write,Grep,TodoWrite | sparc-agent, quality-agent |
+| `blocker-escalation-agent` | Systematic escalation | Read,Write,Grep,Glob | All agents when blocked |
 | `github-workflow` | PR & branch management | Bash,Read,Write,LS | quality-agent, test-agent |
-| `github-issues` | Issue & project tracking | Read,Write,Bash | github-workflow, research-agent |
+| `github-issues` | Issue & project tracking | Read,Write,Bash | github-workflow, tracking-agent |
 | `build-monitor` | CI/CD & health monitoring | Bash,Read,Write,Grep | security-ops, github-workflow |
 | `security-ops` | Security & spend control | Bash,Read,Write,Grep | build-monitor, quality-agent |
 | `release-ops` | Release & deployment | Bash,Read,Write,Edit | build-monitor, github-workflow |
@@ -42,7 +46,6 @@ Our streamlined agent team consists of:
 ### Task-to-Agent Mapping
 
 **Feature Development:**
-1. `research-agent` → Requirements and evidence gathering
 2. `sparc-agent` → Process coordination through SPARC phases
 3. `development-agent` → Implementation with React/Node.js/TypeScript
 4. `test-agent` → TDD and comprehensive testing
@@ -62,19 +65,26 @@ Our streamlined agent team consists of:
 
 ### Agent Invocation Examples
 
+Use Claude Code's `Task` tool with `subagent_type` parameter:
+
 ```bash
 # Feature development workflow
-claude-flow agent development-agent "Implement user authentication with Firebase"
-claude-flow agent test-agent "Create comprehensive test suite for auth system"
-claude-flow agent quality-agent "Review authentication implementation for security patterns"
+Task(subagent_type="development-agent", prompt="Implement user authentication with Firebase")
+Task(subagent_type="test-agent", prompt="Create comprehensive test suite for auth system") 
+Task(subagent_type="quality-agent", prompt="Review authentication implementation for security patterns")
 
 # Bug analysis and fix
-claude-flow agent quality-agent "Analyze infinite loop in useAssessment hook"
-claude-flow agent development-agent "Fix React hook stability issues"
+Task(subagent_type="blocker-escalation-agent", prompt="Analyze authentication blocker and escalation strategy")
+Task(subagent_type="quality-agent", prompt="Analyze infinite loop in useAssessment hook")
+Task(subagent_type="development-agent", prompt="Fix React hook stability issues")
 
 # Release management
-claude-flow agent release-ops "Prepare release v1.2.0 with changelog and deployment"
-claude-flow agent build-monitor "Validate production deployment health"
+Task(subagent_type="release-ops", prompt="Prepare release v1.2.0 with changelog and deployment")
+Task(subagent_type="build-monitor", prompt="Validate production deployment health")
+
+# Planning and tracking
+Task(subagent_type="tracking-agent", prompt="Monitor implementation alignment with planning docs")
+Task(subagent_type="sparc-agent", prompt="Coordinate SPARC methodology across development phases")
 ```
 
 ## 🔗 Agent Coordination Patterns
@@ -90,19 +100,19 @@ The system automatically selects appropriate agents based on:
 ### Sequential Workflows
 Common agent sequences for different task types:
 
-**New Feature (US-XXX):**
-```
-research-agent → sparc-agent → development-agent → test-agent → quality-agent → github-workflow → release-ops
-```
-
 **Bug Fix:**
 ```
-quality-agent → development-agent → test-agent → github-workflow
+blocker-escalation-agent → quality-agent → development-agent → test-agent → github-workflow
 ```
 
 **Security Issue:**
 ```
 security-ops → quality-agent → development-agent → test-agent → release-ops
+```
+
+**Planning & Implementation:**
+```
+tracking-agent → sparc-agent → development-agent → test-agent → quality-agent
 ```
 
 ## 📋 Quality Gates & Standards
@@ -116,6 +126,8 @@ Each agent enforces specific quality gates:
 
 ### Process Standards  
 - **sparc-agent**: All phases completed before progression, proper documentation
+- **tracking-agent**: Implementation alignment with planning documents, progress monitoring
+- **blocker-escalation-agent**: Systematic blocker analysis and proper escalation decisions
 - **github-workflow**: PR validation, proper branching, documentation updates
 
 ### Operations Standards
@@ -174,9 +186,9 @@ Agents automatically adapt to project configuration:
 
 ## 🎉 Agent Team Summary
 
-**From 30+ overlapping agents to 10 focused specialists**, our streamlined team provides:
+**From 30+ overlapping agents to 11 focused specialists**, our streamlined team provides:
 
-✅ **Complete coverage** of development, testing, operations, and research
+✅ **Complete coverage** of development, testing and operations
 ✅ **Zero overlap** - each agent has distinct, clear responsibilities  
 ✅ **Seamless coordination** - agents work together automatically
 ✅ **Educational approach** - learning-focused communication style
