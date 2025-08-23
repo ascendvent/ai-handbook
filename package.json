@@ -1,6 +1,6 @@
 {
   "name": "@ascendvent/ai-handbook",
-  "version": "1.4.0",
+  "version": "2.0.0",
   "description": "Universal AI Engineering Handbook - Open source standards and protocols for AI-assisted development with Claude Code",
   "main": "index.js",
   "exports": {
