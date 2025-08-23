@@ -10,14 +10,19 @@ jobs:
   test:
     runs-on: ubuntu-latest
     
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         
-      - name: Setup Node.js
+      - name: Setup Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
           
       - name: Install dependencies
         run: npm ci || npm install
@@ -30,12 +35,14 @@ jobs:
           echo "Checking required files exist..."
           test -f package.json || exit 1
           test -f index.js || exit 1
-          test -f AGENT-INHERITANCE.md || exit 1
           test -f CLAUDE_GLOBAL.md || exit 1
+          test -f LICENSE || exit 1
+          test -f CONTRIBUTING.md || exit 1
+          test -d agents || exit 1
           test -d templates || exit 1
           echo "All required files present ✓"
           
-      - name: Validate package.json
+      - name: Validate package.json for open source
         run: |
           node -e "
             const pkg = require('./package.json');
@@ -43,16 +50,16 @@ jobs:
               console.error('Package name must start with @ascendvent/');
               process.exit(1);
             }
-            if (!pkg.publishConfig || pkg.publishConfig.registry !== 'https://npm.pkg.github.com/') {
-              console.error('Package must be configured for GitHub Package Registry');
+            if (pkg.license !== 'Apache-2.0') {
+              console.error('Package must use Apache-2.0 license');
               process.exit(1);
             }
-            if (!pkg.publishConfig.access || pkg.publishConfig.access !== 'restricted') {
-              console.error('Package access must be restricted');
+            if (!pkg.publishConfig || pkg.publishConfig.registry !== 'https://registry.npmjs.org/') {
+              console.error('Package must be configured for public NPM registry');
               process.exit(1);
             }
-            if (pkg.private === true) {
-              console.error('Remove private field for GitHub Package Registry publishing');
+            if (!pkg.publishConfig.access || pkg.publishConfig.access !== 'public') {
+              console.error('Package access must be public');
               process.exit(1);
             }
             console.log('Package.json validation passed ✓');

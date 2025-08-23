@@ -1,15 +1,86 @@
-# Ascendvent AI Handbook
+# Universal AI Engineering Handbook
 
-**Global AI Engineering Guardrails for Ascendvent LLC**
-Central policy and standards hub defining how Claude and other AI agents operate across all Ascendvent projects. Provides engineering guardrails, testing protocols, and quality gates for consistent, high-quality AI-assisted development.
+**Open Source Standards for AI-Assisted Development**
+
+A comprehensive, stack-agnostic policy framework that defines how Claude Code and AI agents should behave across development projects. This handbook provides engineering guardrails, testing protocols, and quality gates to ensure consistent, high-quality AI-assisted development.
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
+[![NPM](https://img.shields.io/npm/v/@ascendvent/ai-handbook.svg)](https://www.npmjs.com/package/@ascendvent/ai-handbook)
+[![CI](https://github.com/ascendvent/ai-handbook/workflows/CI/badge.svg)](https://github.com/ascendvent/ai-handbook/actions)
 
 ---
 
-## Purpose
-* **AI Agent Behavior Standards** — Define how Claude operates across company projects
-* **Engineering Quality Gates** — Prevent common AI-assisted development pitfalls
-* **Systematic Development Protocols** — Enforce methodical approaches over urgency shortcuts
-* **Cross-Project Consistency** — Unified standards regardless of product or platform
+## 🎯 What This Project Does
+
+This handbook solves the problem of **inconsistent AI agent behavior** across development projects. When using Claude Code or other AI development tools, teams often struggle with:
+
+- **Unpredictable AI responses** that vary between projects
+- **Missing quality gates** that let buggy code through  
+- **Inconsistent development practices** across team members
+- **Lack of systematic approaches** when AI agents get stuck
+
+**The Solution:** A universal inheritance system where projects declare `Inherits: @ascendvent/ai-handbook` in their `CLAUDE.md` file and automatically get:
+
+✅ **Consistent AI Behavior** - All Claude Code agents follow the same quality standards  
+✅ **Educational Communication** - AI explains concepts in simple, learning-friendly terms  
+✅ **Systematic Blocker Handling** - Clear escalation criteria when AI gets stuck  
+✅ **Quality Enforcement** - Mandatory testing, linting, and build validation  
+✅ **Specialized Agent Library** - 11 purpose-built agents for different development tasks
+
+---
+
+## 🚀 Quick Start
+
+### For Project Users
+
+Add AI development standards to your project in 2 minutes:
+
+```bash
+# 1. Install the handbook
+npm install --save-dev @ascendvent/ai-handbook
+
+# 2. Copy the project template  
+cp node_modules/@ascendvent/ai-handbook/templates/CLAUDE.template.md ./CLAUDE.md
+
+# 3. Customize CLAUDE.md with your project details
+# That's it! Your project now inherits universal AI standards
+```
+
+### What You Get
+
+Once installed, Claude Code will automatically:
+- Use educational, kid-friendly explanations for all technical concepts
+- Follow systematic debugging approaches instead of random fixes
+- Enforce quality gates (tests, linting, builds) before code changes
+- Use specialized agents for different tasks (testing, development, GitHub workflows)
+- Escalate properly when hitting authentication or environment blockers
+
+---
+
+## 🏗️ Project Architecture
+
+### Core Components
+
+| Component | Purpose |
+|-----------|---------|
+| **CLAUDE_GLOBAL.md** | Universal AI behavior rules (inherited automatically) |
+| **agents/*** | 11 specialized agents for different development tasks |
+| **templates/CLAUDE.template.md** | Clean template for project adoption |
+| **package.json** | NPM package configuration for easy distribution |
+
+### How Inheritance Works
+
+```mermaid
+graph LR
+    A[Your Project] --> B[CLAUDE.md]
+    B --> C[Inherits: @ascendvent/ai-handbook]
+    C --> D[CLAUDE_GLOBAL.md]
+    D --> E[Universal AI Standards]
+    D --> F[11 Specialized Agents]
+    D --> G[Quality Gates]
+```
+
+Projects get universal standards while maintaining project-specific customization.
 
 ---
 
@@ -29,85 +100,148 @@ Central policy and standards hub defining how Claude and other AI agents operate
 ### Key Files
 
 **CLAUDE_GLOBAL.md**
-* Located inside `@ascendvent/ai-handbook`
+* Located inside this handbook package
 * Authoritative global AI policy
 * Never modified in individual projects
 
 **CLAUDE.md**
 * Lives in your project root
-* Inherits from `CLAUDE_GLOBAL.md`
+* Inherits from `CLAUDE_GLOBAL.md` via `Inherits: @your-org/ai-handbook`
 * Can override or extend policies for project-specific needs
 
 ---
 
-## Installation
+## 📦 Installation & Usage
 
-**1. Configure NPM registry**
+### For Project Teams
+
+**1. Install the package**
 ```bash
-# In project root, create or update .npmrc
-echo "@ascendvent:registry=https://npm.pkg.github.com/" > .npmrc
-echo "//npm.pkg.github.com/:_authToken=${NPM_TOKEN}" >> .npmrc
+npm install --save-dev @ascendvent/ai-handbook
 ```
 
-**2. Add to package.json**
-```json
-{
-  "devDependencies": {
-    "@ascendvent/ai-handbook": "^1.4.0"
-  }
-}
-```
-
-**3. Install the package**
+**2. Set up your project configuration**
 ```bash
-export NPM_TOKEN="your_github_token_here"
-npm install
+# Copy the clean template
+cp node_modules/@ascendvent/ai-handbook/templates/CLAUDE.template.md ./CLAUDE.md
+
+# Or download directly  
+curl -o CLAUDE.md https://raw.githubusercontent.com/ascendvent/ai-handbook/main/templates/CLAUDE.template.md
 ```
 
-**4. Inherit agents locally**
+**3. Customize for your project**
+Edit `CLAUDE.md` with your specific tech stack, commands, and team information.
+
+### Alternative: Direct Download
 ```bash
-npx inherit-agents
+# Just get the template without installing the package
+curl -o CLAUDE.md https://raw.githubusercontent.com/ascendvent/ai-handbook/main/templates/CLAUDE.template.md
 ```
 
-This copies all global agents into your .claude/agents directory.
-
-**5. Add inheritance to CLAUDE.md**
-```
+### Verification
+Your `CLAUDE.md` should start with:
+```markdown  
 Inherits: @ascendvent/ai-handbook
 ```
+This tells Claude Code to apply universal AI development standards to your project.
 
 ---
 
-## Updating Agents
+## 🛠️ Development Setup
 
-When the package updates:
+### For Contributors & Maintainers
+
+**Prerequisites:**
+- Node.js 16+ 
+- npm 7+
+- Git
+
+**Local Development:**
 ```bash
-npm update @ascendvent/ai-handbook
-npx inherit-agents
+# Clone the repository
+git clone https://github.com/ascendvent/ai-handbook.git
+cd ai-handbook
+
+# Install dependencies  
+npm install
+
+# Run tests
+npm test
+
+# Validate all components
+npm run validate
+
+# Clean build artifacts
+npm run clean:all
 ```
 
-This overwrites existing inherited agents. Custom agents in .claude/agents remain untouched.
+**Development Workflow:**
+```bash
+# Create feature branch
+git checkout -b feature/my-improvement
+
+# Make changes to agents/, templates/, or CLAUDE_GLOBAL.md
+
+# Test your changes
+npm test
+npm run validate
+
+# Commit and push
+git add .
+git commit -m "feat: add new agent for X"
+git push origin feature/my-improvement
+
+# Create pull request via GitHub
+```
+
+**Testing Locally:**
+```bash
+# Test the package in another project
+cd ../test-project
+npm install ../ai-handbook
+cp node_modules/@ascendvent/ai-handbook/templates/CLAUDE.template.md ./CLAUDE.md
+
+# Verify inheritance works with Claude Code
+```
+
+### Repository Structure
+```
+ai-handbook/
+├── agents/                     # 11 specialized AI agents
+│   ├── development-agent.md
+│   ├── quality-agent.md
+│   └── ...
+├── templates/
+│   └── CLAUDE.template.md      # Clean project template
+├── docs/                       # Documentation
+├── .github/                    # GitHub workflows & templates  
+├── CLAUDE_GLOBAL.md           # Universal AI behavior rules
+├── package.json               # NPM package config
+└── README.md                  # This file
+```
 
 ---
 
 ## Available Agents
 
-**Build & Quality**
-* build-config — Validates Docker configs
-* local-build — Docker build orchestration
-* test-enforcement — Jest coverage enforcement
-* pr-checklist — PR validation
+**Development**
+* `development-agent` — Full-stack React/Node.js/TypeScript implementation
+* `quality-agent` — Code quality analysis, refactoring, and review
+* `test-agent` — Comprehensive testing with coverage enforcement
 
-**Code Quality**
-* refactoring-agent — Code analysis
-* react-patterns — Prevents React hook misusage
-* typescript-enforcement — Enforces strict TS typing
+**Process Management**
+* `sparc-agent` — SPARC methodology coordination (Specification, Pseudocode, Architecture, Refinement, Completion)
+* `tracking-agent` — Planning and implementation alignment monitoring
+* `blocker-escalation-agent` — Systematic blocker and escalation decision making
 
-**Monitoring**
-* metrics — Effectiveness reporting
-* release-notes — Auto-generates release notes
-* security-monitor — Security scanning
-* spend-guard — API cost monitoring
+**GitHub Integration**
+* `github-workflow` — PR creation, branch management, and workflow automation
+* `github-issues` — Issue management and project coordination
+
+**Operations**
+* `build-monitor` — Build validation, CI/CD operations, and health checks
+* `security-ops` — Security monitoring, vulnerability scanning, and spend control
+* `release-ops` — Release management, changelog generation, and deployment coordination
 
 ---
 
@@ -133,8 +267,34 @@ handbook.inheritAgents();
 
 ---
 
-## Local Customization
+---
 
-* Edit inherited agents in .claude/agents
-* Add custom agents alongside them
-* Only project-level changes override inherited behavior
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guidelines](CONTRIBUTING.md) for details.
+
+### Development Setup
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Run tests: `npm test`
+5. Submit a pull request
+
+### Code of Conduct
+This project follows the [Contributor Covenant](https://www.contributor-covenant.org/) Code of Conduct.
+
+---
+
+## License
+
+Licensed under the Apache License, Version 2.0. See [LICENSE](LICENSE) for details.
+
+**Copyright 2025 Ryan McDonald and Ascendvent LLC**
+
+---
+
+## Support
+
+- 📖 [Documentation](https://github.com/ascendvent/ai-handbook)
+- 🐛 [Report Issues](https://github.com/ascendvent/ai-handbook/issues)
+- 💬 [Discussions](https://github.com/ascendvent/ai-handbook/discussions)

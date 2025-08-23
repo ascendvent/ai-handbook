@@ -1,34 +1,34 @@
 {
   "name": "@ascendvent/ai-handbook",
   "version": "1.4.0",
-  "description": "Global AI Engineering Guardrails for Ascendvent LLC - Standards and protocols for AI-assisted development",
+  "description": "Universal AI Engineering Handbook - Open source standards and protocols for AI-assisted development with Claude Code",
   "main": "index.js",
   "exports": {
     ".": "./index.js",
     "./claude-global": "./CLAUDE_GLOBAL.md",
     "./agents/*": "./agents/*",
     "./templates/*": "./templates/*",
-    "./scripts/*": "./scripts/*",
-    "./agent-inheritance": "./AGENT-INHERITANCE.md"
+    "./template": "./templates/CLAUDE.template.md",
+    "./scripts/*": "./scripts/*"
   },
   "files": [
     "index.js",
     "CLAUDE_GLOBAL.md",
-    "AGENT-INHERITANCE.md",
     "agents/",
     "templates/",
     "scripts/",
     "README.md",
     "CHANGELOG.md",
-    "VERSION.md"
+    "VERSION.md",
+    "LICENSE",
+    "CONTRIBUTING.md"
   ],
   "scripts": {
     "test": "node scripts/validator/validate-policy.cjs",
+    "validate": "npm run test && echo '✅ All components validated'",
+    "clean:all": "rm -rf node_modules/ dist/ build/ .cache/ coverage/ *.log",
     "prepare": "npm run test",
     "version": "echo $npm_package_version > VERSION.md && git add VERSION.md"
-  },
-  "bin": {
-    "inherit-agents": "scripts/inherit-agents.js"
   },
   "repository": {
     "type": "git",
@@ -37,17 +37,20 @@
   "keywords": [
     "ai",
     "claude",
+    "claude-code",
     "engineering",
     "standards",
     "development",
     "guardrails",
-    "ascendvent"
+    "best-practices",
+    "open-source",
+    "handbook"
   ],
-  "author": "Ascendvent LLC",
-  "license": "UNLICENSED",
+  "author": "Ryan McDonald <ryan@ascendvent.com>",
+  "license": "Apache-2.0",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/",
-    "access": "restricted"
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
   },
   "engines": {
     "node": ">=16.0.0"

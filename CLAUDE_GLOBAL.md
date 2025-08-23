@@ -1,9 +1,9 @@
 # CLAUDE_GLOBAL.md — Global Policy (Stack-Agnostic)
 
 ## 1. Purpose
-Applies to all Ascendvent LLC projects via `Inherits: @ascendvent/ai-handbook`.
-Defines constraints, coding standards, SDLC protocols, testing requirements, bug management, documentation rules, agent usage, telemetry, and cost controls for AI-assisted development.
-**Note:** This file lives inside `@ascendvent/ai-handbook` and is never modified in individual projects.
+Universal AI development handbook for projects using Claude Code and AI-assisted development.
+Defines constraints, coding standards, SDLC protocols, testing requirements, bug management, documentation rules, agent usage, telemetry, and cost controls.
+**Note:** This file provides global policies that can be inherited by projects via `Inherits: @your-org/ai-handbook` pattern.
 
 ---
 
@@ -25,31 +25,66 @@ Defines constraints, coding standards, SDLC protocols, testing requirements, bug
 
 ---
 
-## 3. Mandatory Agent Usage
-**Agent-First Rule:** Use agents before direct action.
+## 3. Mandatory Agent Usage & Critical Rules
 
-**Core Inherited Agents**
-(These are copied locally via `npx inherit-agents`)
-* **Build & Quality:** build-config, local-build, test-enforcement, pr-checklist
-* **Code Quality:** refactoring-agent, react-patterns, typescript-enforcement
-* **Monitoring:** metrics, release-notes, security-monitor, spend-guard
+### Agent-First (MANDATORY)
+- **ALWAYS** check `.claude/agents/` before ANY manual implementation work.
+- **REQUIRED** for these task types:
+  - Bug analysis and fixes → `quality-agent` 
+  - React/Node.js implementation → `development-agent`
+  - Test creation → `test-agent`
+  - Code quality issues → `quality-agent`
+  - Process coordination → `sparc-agent`
+  - GitHub workflows → `github-workflow`
+  - GitHub issues management → `github-issues`
+  - Build and CI/CD → `build-monitor`
+  - Security and spend → `security-ops`
+  - Releases and deployment → `release-ops`
+  - Planning and tracking → `tracking-agent`
+  - Blocker Management and escalation → `blocker-escalation-agent`
+- **Workflow**: Use `Task` tool with appropriate `subagent_type` BEFORE any manual Read/Write/Edit operations.
+- **Exception**: Only skip agents for trivial tasks (single line changes, documentation updates).
+
+### Blocker Management & Escalation
+- **MAJOR BLOCKERS** require immediate escalation to user: Authentication failures, API access issues, missing credentials, environment configuration problems that prevent core functionality validation
+- **MINOR ISSUES** continue troubleshooting: Code logic bugs, test failures, build issues, TypeScript errors
+- **VALIDATION vs IMPLEMENTATION**: Never claim "validation success" without actual successful execution - distinguish between "code written" and "feature validated"
+- **STOP AND ASK** when hitting authentication/access blockers - don't create elaborate workarounds and claim success
+- **BE HONEST** about limitations - report "implementation complete, validation blocked" instead of false claims
+
+### Authentication/Access Escalation Criteria
+- **401/403 errors** preventing API testing → STOP and ask for auth guidance
+- **Missing API keys or tokens** → STOP and ask for credentials  
+- **Environment setup blockers** → STOP and ask for configuration help
+- **Permission issues** preventing file access → STOP and ask for permissions
+- **Network/connectivity issues** preventing external API calls → STOP and ask for network guidance
+- **Requirement and Tack Clarification** → STOP and ask follow up questions to research and ensure details for verification all asks
+
+**Available Agents**
+(Located in `/agents/` directory)
+* **Development:** development-agent, quality-agent, test-agent
+* **Process Management:** sparc-agent, tracking-agent, blocker-escalation-agent
+* **GitHub Integration:** github-workflow, github-issues
+* **Operations:** build-monitor, security-ops, release-ops
 
 **Usage Protocol**
 1. Identify the task.
-2. Check `.claude/agents/` for an agent covering it.
-3. Run the agent with proper parameters.
+2. Check `/agents/` directory for an agent covering it.
+3. Use `Task` tool with appropriate `subagent_type` parameter.
 4. Only proceed manually if no agent covers the task.
 
-**Setup & Updates**
-```bash
-# Initial install
-npm install @ascendvent/ai-handbook
-npx inherit-agents
-
-# After package updates
-npm update @ascendvent/ai-handbook
-npx inherit-agents
-```
+**Available Agent Types:**
+- blocker-escalation-agent
+- build-monitor  
+- development-agent
+- github-issues
+- github-workflow
+- quality-agent
+- release-ops
+- security-ops
+- sparc-agent
+- test-agent
+- tracking-agent
 ---
 
 ## 4. Testing Protocols (No Exceptions)
@@ -58,6 +93,20 @@ Before any code change:
 1. Run the full test suite.
 2. Block progress if failures occur.
 3. Follow clean build rules enforced by local-build agent.
+
+**Universal Testing Standards**
+- Coverage target ≥ 80%.
+- Add regression tests for every bug fix.
+- Route handlers covered with Jest + Supertest (or equivalent).
+- PR merges blocked on failing tests, TypeScript errors, or build failures.
+
+**Safety Gates**
+- Tests must pass locally before PR.
+- TypeScript must compile clean.
+- Docker build must succeed if containerized.
+- User story reference (US-XXX) required for all feature work.
+- **📋 Planning document alignment validated before merge**.
+- **📊 User story status updated when features completed**.
 
 Violations = Immediate Stop
 ---
@@ -109,12 +158,31 @@ Each action must:
 * Memoize callbacks.
 * Monitor console warnings, network activity, and memory usage.
 
+**Performance & Loop Prevention (Frontend)**
+- Avoid unstable deps in effects and callbacks.
+- Memoize callbacks and derived values where necessary.
+- Watch for rapid identical requests and excessive render cycles.
+
+**Refactoring Expectations (Repo-level DRY)**
+- Consolidate shared logic into `/shared` when used by both client and server.
+- Detect and resolve duplicate or near-duplicate modules, including stale copies in different dirs.
+- Identify dangling files not imported anywhere; either delete or merge.
+- Preserve behavior; minimal diffs preferred.
+
 ---
 
 ## 9. Data Verification
 * Verify persistence before/after API calls.
 * Pair endpoint tests with state inspection.
 * If API returns success but data unchanged, block progress until fixed.
+
+**Data Verification (Backend)**
+- Verify persistence before/after API calls.
+- If API returns success with no state change, treat as a failure and block progress.
+
+**Spend & Secrets**
+- Do not hardcode tokens. Use env files and keep them out of VCS.
+- Local token budgets enforced by agents where configured.
 
 ---
 

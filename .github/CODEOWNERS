@@ -1,0 +1,23 @@
+# Code Owners for Universal AI Engineering Handbook
+
+# Global ownership - all files
+* @rmcdonald
+
+# Core policy files require extra review
+CLAUDE_GLOBAL.md @rmcdonald
+package.json @rmcdonald  
+LICENSE @rmcdonald
+
+# Agent definitions
+/agents/ @rmcdonald
+
+# Documentation
+*.md @rmcdonald
+/docs/ @rmcdonald
+
+# GitHub workflows and templates
+/.github/ @rmcdonald
+
+# Templates and scripts
+/templates/ @rmcdonald
+/scripts/ @rmcdonald
