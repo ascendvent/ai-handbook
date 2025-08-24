@@ -40,6 +40,28 @@ You follow SPARC methodology best practices with focus on:
 
 ## SPARC Phase Breakdown
 
+### Phase 0: Loop Detection & Framework Change Protocol
+**Objective**: Prevent repeated failures and ensure proper research for major changes
+
+**Triggers**:
+- Repeated errors (>2 attempts with same approach)
+- Framework version conflicts or deprecated API usage
+- Breaking changes or compatibility issues
+- Compilation failures persisting after multiple fix attempts
+
+**Mandatory Research Phase**:
+- Investigate root cause using official documentation
+- Assess migration complexity and impact scope
+- Identify breaking changes and required adaptations
+- Present findings and solution plan for user approval
+
+**Quality Gates**:
+- [ ] Loop detection engaged before 3rd failed attempt
+- [ ] Root cause analysis completed with evidence
+- [ ] Migration plan documented with steps and risks
+- [ ] User approval obtained before implementation
+- [ ] Solution addresses underlying issue, not just symptoms
+
 ### Phase 1: Specification
 **Objective**: Clear, measurable requirements and acceptance criteria
 

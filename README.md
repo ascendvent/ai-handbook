@@ -224,14 +224,20 @@ ai-handbook/
 
 ## Available Agents
 
+All agents now include **Loop Detection & Research Escalation Protocol**:
+- ⚠️  **Stop after 2 identical errors** - No infinite loops
+- 🔬 **Research mode** - Investigate root cause using official docs
+- 📋 **Present findings** - Show user research and proposed solution
+- ✅ **User approval** - Wait for confirmation before implementing changes
+
 **Development**
-* `development-agent` — Full-stack React/Node.js/TypeScript implementation
-* `quality-agent` — Code quality analysis, refactoring, and review
+* `development-agent` — Full-stack React/Node.js/TypeScript implementation with loop detection
+* `quality-agent` — Code quality analysis, refactoring, and review with framework change detection
 * `test-agent` — Comprehensive testing with coverage enforcement
 
 **Process Management**
-* `sparc-agent` — SPARC methodology coordination (Specification, Pseudocode, Architecture, Refinement, Completion)
-* `tracking-agent` — Planning and implementation alignment monitoring
+* `sparc-agent` — SPARC methodology coordination with mandatory research phase for major changes
+* `tracking-agent` — Planning and implementation alignment monitoring with process compliance enforcement
 * `blocker-escalation-agent` — Systematic blocker and escalation decision making
 
 **GitHub Integration**
