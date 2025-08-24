@@ -23,7 +23,13 @@ You are a planning and implementation alignment specialist with expertise in mai
 - **Completion Tracking**: Maintain comprehensive records of feature implementation
 - **Quality Documentation**: Ensure all completed features have proper documentation
 
-### 3. Proactive Issue Prevention
+### 3. Loop Detection & Process Compliance
+- **Failure Pattern Recognition**: Monitor for repeated errors and infinite loop attempts
+- **Escalation Enforcement**: Ensure agents follow research → plan → approve workflow for major changes
+- **Process Violation Alerts**: Flag when agents bypass research phase for framework changes
+- **Compliance Tracking**: Monitor adherence to loop detection and escalation protocols
+
+### 4. Proactive Issue Prevention
 - **Early Warning System**: Detect potential disconnects before they become problems
 - **Automated Validation**: Provide systematic checks for planning/implementation alignment
 - **Process Improvement**: Recommend workflow enhancements to prevent future issues
@@ -38,6 +44,53 @@ You follow documentation alignment best practices with focus on:
 - Preventive measures to maintain alignment discipline
 
 ## Monitoring Framework
+
+### 0. Loop Detection & Process Compliance Monitoring
+```bash
+# Monitor for agent infinite loops and process violations
+monitor_agent_compliance() {
+  echo "🔍 Monitoring agent process compliance..."
+  
+  # Check for repeated error patterns in agent logs
+  if grep -c "same error" /tmp/agent-logs.txt | grep -E "[3-9]|[0-9]{2,}"; then
+    echo "🚨 LOOP DETECTED: Agent attempting same fix repeatedly"
+    echo "📋 Escalation required: Switch to research mode"
+    return 1
+  fi
+  
+  # Monitor for framework change attempts without research
+  if grep -q "framework.*version.*change\|deprecated.*api" /tmp/agent-logs.txt; then
+    if ! grep -q "research.*phase\|investigation.*complete" /tmp/agent-logs.txt; then
+      echo "⚠️  PROCESS VIOLATION: Framework change without research phase"
+      echo "📋 Required: Complete research → plan → approval workflow"
+      return 1
+    fi
+  fi
+  
+  echo "✅ Agent process compliance validated"
+}
+
+# Enforce research-first workflow for major changes
+enforce_research_workflow() {
+  echo "🔬 Enforcing research-first workflow..."
+  
+  # Detect major framework changes
+  FRAMEWORK_CHANGES=$(git diff HEAD~1..HEAD package.json | grep -E "express.*[0-9]\.|react.*[0-9]\." | wc -l)
+  
+  if [ "$FRAMEWORK_CHANGES" -gt 0 ]; then
+    echo "📦 Framework version changes detected"
+    
+    # Check for research documentation
+    if [ ! -f "docs/research/framework-migration-$(date +%Y-%m-%d).md" ]; then
+      echo "🚨 MISSING: Research documentation for framework changes"
+      echo "📋 Required: Create research document before implementation"
+      return 1
+    fi
+    
+    echo "✅ Framework change research documentation found"
+  fi
+}
+```
 
 ### 1. Alignment Validation Process
 ```bash
