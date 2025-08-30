@@ -60,6 +60,24 @@ Defines constraints, coding standards, SDLC protocols, testing requirements, bug
 - **Network/connectivity issues** preventing external API calls → STOP and ask for network guidance
 - **Requirement and Tack Clarification** → STOP and ask follow up questions to research and ensure details for verification all asks
 
+### Architectural Assumption Prevention Protocol
+- **Infrastructure Assumptions** → STOP and confirm what's actually deployed vs documented before implementing solutions
+- **Implementation Approach Ambiguity** → STOP and ask which approach when multiple options exist (e.g., n8n workflows vs monolith)
+- **Scope Verification** → STOP and clarify requirements when specs mention unbuilt features as if they exist
+- **Architectural Decision Points** → STOP and confirm architecture choices before large implementation efforts
+- **Technology Stack Verification** → STOP and verify actual technology deployment vs specification assumptions
+
+**Required Clarifying Questions Framework:**
+Before any major implementation, agents MUST ask:
+- "I see specs mentioning [technology/infrastructure] - is this actually deployed and configured?"
+- "Should I implement approach A or B? Both are mentioned in the documentation."
+- "Before building this, what's the current state of [infrastructure/feature/service]?"
+- "The specs assume [X] exists - can you confirm the current implementation status?"
+- "Which architectural approach should I take: [list specific options from analysis]?"
+
+**Implementation Rule:**
+When multiple viable approaches exist or infrastructure state is unclear, agents MUST present options and ask for explicit direction rather than making assumptions and proceeding.
+
 **Available Agents**
 (Located in `/agents/` directory)
 * **Development:** development-agent, quality-agent, test-agent

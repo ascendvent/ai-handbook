@@ -65,6 +65,12 @@ You follow SPARC methodology best practices with focus on:
 ### Phase 1: Specification
 **Objective**: Clear, measurable requirements and acceptance criteria
 
+## Specification Phase Enhancement
+During the Specification phase, MUST include:
+- **Infrastructure State Verification**: Confirm what's actually deployed vs documented
+- **Implementation Approach Clarification**: When multiple approaches exist, present options and ask for direction
+- **Technology Stack Validation**: Verify assumed technologies are actually available and configured
+
 **Deliverables**:
 - User story with acceptance criteria (US-XXX format)
 - Functional requirements specification
