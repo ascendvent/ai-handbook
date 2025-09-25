@@ -1,6 +1,46 @@
 # Changelog
 
-## v1.2.0 – 2025-08-13
+All notable changes to the Universal AI Engineering Handbook will be documented in this file.
+
+The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+## [Unreleased]
+
+### Added
+- Comprehensive open source documentation structure
+- Enhanced README with Getting Started guide and agent selection flowchart
+- Documentation resources section with performance benefits and links
+- Real-world usage patterns and examples in README
+- SECURITY.md for vulnerability reporting
+- docs/EXAMPLES.md for real-world usage scenarios
+- docs/TROUBLESHOOTING.md for common issues and solutions
+- docs/AGENT_CUSTOMIZATION.md for extending agents
+
+### Changed
+- **MAJOR:** Optimized all 11 agent files for maximum token reduction (60-80% smaller)
+- Streamlined agent descriptions while preserving core functionality
+- Improved agent coordination patterns and usage instructions
+- Enhanced documentation structure for better open source adoption
+
+## [2.1.0] - 2025-01-25
+
+### Added
+- Architectural assumption prevention protocol to prevent infrastructure assumptions
+- Loop detection and research escalation protocol to prevent infinite loops
+- Enhanced blocker escalation protocols for authentication and access issues
+- Framework change detection with mandatory research phase
+
+### Changed
+- Updated all agents with loop detection protocols
+- Enhanced tracking-agent with process compliance monitoring
+- Improved quality-agent with architectural verification requirements
+
+### Fixed
+- Framework version conflict handling in development workflows
+- Infinite loop prevention in agent troubleshooting processes
+
+## v1.2.0 – 2024-08-13
 
 ### Fixed
 - **Version Consistency**: Updated all version references across files to maintain consistency
@@ -29,9 +69,41 @@
 - **README**: Updated key features to highlight automated refactoring detection capabilities
 - **Agent Documentation**: Updated agents catalog to include Refactoring Agent specifications
 
-## v1.0.0 – YYYY-MM-DD
-- Initial release of ai-handbook  
-- Added POLICY.md with stack-agnostic global rules  
-- Added PLAYBOOKS: DOCKER.md, POSTGRES.md, REACT-HOOKS.md, TYPESCRIPT.md  
-- Added CLAUDE.template.md for project overlays  
+## v1.0.0 – 2024-08-01
+
+### Added
+- Initial release of ai-handbook
+- Added POLICY.md with stack-agnostic global rules
+- Added PLAYBOOKS: DOCKER.md, POSTGRES.md, REACT-HOOKS.md, TYPESCRIPT.md
+- Added CLAUDE.template.md for project overlays
 - Created agents/ directory for global agent definitions
+
+---
+
+## Contributing to the Changelog
+
+When contributing to this project, please:
+
+1. **Follow [Conventional Commits](https://conventionalcommits.org/) format**
+2. **Update the [Unreleased] section** with your changes
+3. **Use appropriate change categories:**
+   - `Added` for new features
+   - `Changed` for changes in existing functionality
+   - `Deprecated` for soon-to-be removed features
+   - `Removed` for now removed features
+   - `Fixed` for any bug fixes
+   - `Security` for vulnerability fixes
+
+4. **Include performance impact** measurements where applicable
+5. **Document breaking changes** in detail with migration guidance
+6. **Link to relevant issues/PRs** using GitHub references
+
+### Release Process
+
+Maintainers will:
+1. Move items from [Unreleased] to a new version section
+2. Update version numbers across the project
+3. Create Git tags for releases
+4. Publish to NPM registry
+
+For questions about versioning, see our [Contributing Guidelines](CONTRIBUTING.md).

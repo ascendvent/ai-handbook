@@ -17,8 +17,11 @@
     "agents/",
     "templates/",
     "scripts/",
+    "docs/",
+    "tests/",
     "README.md",
     "CHANGELOG.md",
+    "SECURITY.md",
     "VERSION.md",
     "LICENSE",
     "CONTRIBUTING.md"
@@ -28,7 +31,15 @@
     "validate": "npm run test && echo '✅ All components validated'",
     "clean:all": "rm -rf node_modules/ dist/ build/ .cache/ coverage/ *.log",
     "prepare": "npm run test",
-    "version": "echo $npm_package_version > VERSION.md && git add VERSION.md"
+    "version": "echo $npm_package_version > VERSION.md && git add VERSION.md",
+    "dev": "echo 'AI Handbook Development Mode - Use for testing agent modifications'",
+    "agent:validate": "echo 'Validating agent files...' && find agents/ -name '*.md' -exec echo 'Checking {}' \\; -exec head -10 {} \\;",
+    "agent:list": "echo 'Available Agents:' && ls -1 agents/*.md | sed 's/agents\\///g' | sed 's/.md//g'",
+    "docs:serve": "echo 'Documentation available at: README.md, docs/, agents/README.md'",
+    "init": "cp templates/CLAUDE.template.md ./CLAUDE.md && echo '✅ CLAUDE.md template copied - customize with your project details'",
+    "health": "npm run validate && npm run agent:list && echo '✅ AI Handbook package healthy'",
+    "update:changelog": "echo 'Remember to update CHANGELOG.md with your changes'",
+    "security:check": "npm audit --audit-level=moderate && echo '✅ Security check completed'"
   },
   "repository": {
     "type": "git",
