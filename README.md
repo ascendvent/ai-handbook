@@ -240,6 +240,32 @@ For troubleshooting and advanced usage, see [Claude CLI Inheritance Guide](docs/
 
 ---
 
+## 🚀 **Automated Releases**
+
+This repository uses semantic-release for automated version management and releases. Every merge to main automatically creates a release based on conventional commits.
+
+### **Commit Message Format**
+Use [Conventional Commits](https://www.conventionalcommits.org/) for all changes:
+
+```bash
+feat: add new feature      # Minor version bump
+fix: resolve bug           # Patch version bump
+feat!: breaking change     # Major version bump
+docs: update documentation # No release
+```
+
+### **Release Process**
+1. Merge PR to main → Automatic release triggered
+2. Version determined from commit messages
+3. Changelog generated automatically
+4. GitHub release created with assets
+5. Package published to npm
+6. Develop branch synced automatically
+
+For detailed information, see [Automated Releases Guide](docs/AUTOMATED_RELEASES.md).
+
+---
+
 ## 🛠️ Development Setup
 
 ### For Contributors & Maintainers
