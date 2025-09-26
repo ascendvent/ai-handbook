@@ -3,8 +3,13 @@
   "version": "2",
   "description": "Universal AI Engineering Handbook - Open source standards and protocols for AI-assisted development with Claude Code",
   "main": "index.js",
+  "bin": {
+    "ai-handbook-inherit": "./scripts/claude-inherit.js",
+    "claude-inherit": "./scripts/claude-inherit.js"
+  },
   "exports": {
     ".": "./index.js",
+    "./package.json": "./package.json",
     "./claude-global": "./CLAUDE_GLOBAL.md",
     "./agents/*": "./agents/*",
     "./templates/*": "./templates/*",
@@ -31,12 +36,15 @@
     "validate": "npm run test && echo '✅ All components validated'",
     "clean:all": "rm -rf node_modules/ dist/ build/ .cache/ coverage/ *.log",
     "prepare": "npm run test",
+    "postinstall": "node scripts/postinstall.js",
     "version": "echo $npm_package_version > VERSION.md && git add VERSION.md",
     "dev": "echo 'AI Handbook Development Mode - Use for testing agent modifications'",
     "agent:validate": "echo 'Validating agent files...' && find agents/ -name '*.md' -exec echo 'Checking {}' \\; -exec head -10 {} \\;",
     "agent:list": "echo 'Available Agents:' && ls -1 agents/*.md | sed 's/agents\\///g' | sed 's/.md//g'",
     "docs:serve": "echo 'Documentation available at: README.md, docs/, agents/README.md'",
     "init": "cp templates/CLAUDE.template.md ./CLAUDE.md && echo '✅ CLAUDE.md template copied - customize with your project details'",
+    "inherit": "node scripts/claude-inherit.js",
+    "resolve-inheritance": "node scripts/resolve-inheritance.js",
     "health": "npm run validate && npm run agent:list && echo '✅ AI Handbook package healthy'",
     "update:changelog": "echo 'Remember to update CHANGELOG.md with your changes'",
     "security:check": "npm audit --audit-level=moderate && echo '✅ Security check completed'"

@@ -205,10 +205,38 @@ curl -o CLAUDE.md https://raw.githubusercontent.com/ascendvent/ai-handbook/main/
 
 ### Verification
 Your `CLAUDE.md` should start with:
-```markdown  
+```markdown
 Inherits: @ascendvent/ai-handbook
 ```
 This tells Claude Code to apply universal AI development standards to your project.
+
+### Claude CLI Inheritance Resolution
+
+**🔧 Automatic Resolution (Recommended)**
+
+If you're using Claude CLI, inheritance should resolve automatically after installation. Verify with:
+
+```bash
+claude
+# In Claude CLI, run: /memory list
+# Should show both project and shared memory
+```
+
+**🛠️ Manual Resolution (If Needed)**
+
+If inheritance doesn't work automatically:
+
+```bash
+# Resolve inheritance manually
+npx @ascendvent/ai-handbook claude-inherit
+
+# Verify configuration was created
+cat .claude/config.json
+```
+
+**📚 Detailed Documentation**
+
+For troubleshooting and advanced usage, see [Claude CLI Inheritance Guide](docs/CLAUDE_CLI_INHERITANCE.md).
 
 ---
 
