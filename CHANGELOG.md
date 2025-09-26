@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.2.1] - 2025-01-26
+
+### Changed
+- Minor version bump for GitHub release alignment
+
+## [2.2.0] - 2025-01-25
+
 ### Added
 - Comprehensive open source documentation structure
 - Enhanced README with Getting Started guide and agent selection flowchart
@@ -16,12 +23,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - docs/EXAMPLES.md for real-world usage scenarios
 - docs/TROUBLESHOOTING.md for common issues and solutions
 - docs/AGENT_CUSTOMIZATION.md for extending agents
+- Development workflow scripts in package.json for better developer experience
 
 ### Changed
 - **MAJOR:** Optimized all 11 agent files for maximum token reduction (60-80% smaller)
 - Streamlined agent descriptions while preserving core functionality
 - Improved agent coordination patterns and usage instructions
 - Enhanced documentation structure for better open source adoption
+- Updated package.json files list to include new documentation files
+
+### Improved
+- Agent token efficiency leading to faster Claude Code performance
+- Documentation clarity and professional open source presentation
+- Developer onboarding experience with comprehensive guides
 
 ## [2.1.0] - 2025-01-25
 
