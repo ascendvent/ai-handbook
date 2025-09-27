@@ -7,6 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2025-01-27
+
+### Added
+- Complete Claude CLI inheritance resolution system for CLAUDE.md `Inherits:` directives
+- Binary CLI tools: `ai-handbook-inherit` and `claude-inherit` for manual inheritance resolution
+- Automatic postinstall hook that resolves inheritance when CLAUDE.md contains inheritance directives
+- Core `resolveInheritance()` function with support for multiple inheritance sources
+- `.claude/config.json` generation with proper project and shared memory configuration
+
+### Fixed
+- Bug where Claude CLI ignores `Inherits: @ascendvent/ai-handbook` directives in CLAUDE.md files
+- GitFlow branch merge validation bypass for develop→main PRs
+- Semantic release workflow compatibility with branch protection rules
+
+### Changed
+- Enhanced inheritance documentation with comprehensive troubleshooting guide
+- Improved commit validation workflow to handle GitFlow branch merges
+- Updated Node.js version requirement in CI workflows
+
 ## [2.2.1] - 2025-01-26
 
 ### Changed
