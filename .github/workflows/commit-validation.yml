@@ -30,4 +30,7 @@ jobs:
 
       - name: Validate commit messages
         run: |
-          npx commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }} --verbose
+          # Only validate commits that are new in this PR (not already in base branch)
+          MERGE_BASE=$(git merge-base ${{ github.event.pull_request.base.sha }} ${{ github.event.pull_request.head.sha }})
+          echo "Validating commits from $MERGE_BASE to ${{ github.event.pull_request.head.sha }}"
+          npx commitlint --from $MERGE_BASE --to ${{ github.event.pull_request.head.sha }} --verbose
