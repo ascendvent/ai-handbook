@@ -1,6 +1,6 @@
 {
   "name": "@ascendvent/ai-handbook",
-  "version": "2",
+  "version": "2.2.1",
   "description": "Universal AI Engineering Handbook - Open source standards and protocols for AI-assisted development with Claude Code",
   "main": "index.js",
   "bin": {
@@ -37,7 +37,6 @@
     "clean:all": "rm -rf node_modules/ dist/ build/ .cache/ coverage/ *.log",
     "prepare": "npm run test",
     "postinstall": "node scripts/postinstall.js",
-    "version": "echo $npm_package_version > VERSION.md && git add VERSION.md",
     "dev": "echo 'AI Handbook Development Mode - Use for testing agent modifications'",
     "agent:validate": "echo 'Validating agent files...' && find agents/ -name '*.md' -exec echo 'Checking {}' \\; -exec head -10 {} \\;",
     "agent:list": "echo 'Available Agents:' && ls -1 agents/*.md | sed 's/agents\\///g' | sed 's/.md//g'",
@@ -74,7 +73,16 @@
   "engines": {
     "node": ">=16.0.0"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "semantic-release": "^24.0.0",
+    "@semantic-release/git": "^10.0.1",
+    "@semantic-release/changelog": "^6.0.3",
+    "@semantic-release/exec": "^6.0.3",
+    "@semantic-release/github": "^10.0.0",
+    "@semantic-release/npm": "^12.0.0",
+    "@commitlint/cli": "^19.0.0",
+    "@commitlint/config-conventional": "^19.0.0"
+  },
   "peerDependencies": {},
   "homepage": "https://github.com/ascendvent/ai-handbook#readme",
   "bugs": {
