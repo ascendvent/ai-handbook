@@ -63,10 +63,30 @@ function getAvailableAgents() {
 function inheritAgents(targetDir = null) {
   const { inheritAgents: inherit } = require('./scripts/inherit-agents.js');
   try {
-    inherit();
-    return { success: true, message: 'Agents inherited successfully' };
+    const result = inherit(targetDir);
+    return { success: true, message: 'Agents inherited successfully', ...result };
   } catch (error) {
     return { success: false, message: error.message };
+  }
+}
+
+/**
+ * Resolve inheritance directives in CLAUDE.md files
+ * This is the main function to handle "Inherits:" directives
+ * @param {object} options - Configuration options
+ * @returns {object} Resolution result with resolved files and warnings
+ */
+function resolveInheritance(options = {}) {
+  const { executeInheritance } = require('./scripts/resolve-inheritance.js');
+  try {
+    return executeInheritance(options);
+  } catch (error) {
+    return {
+      success: false,
+      error: error.message,
+      resolvedFiles: [],
+      warnings: []
+    };
   }
 }
 
@@ -111,6 +131,7 @@ module.exports = {
   getAgent,
   getAvailableAgents,
   inheritAgents,
+  resolveInheritance,
   validatePolicy,
   version: require('./package.json').version
 };

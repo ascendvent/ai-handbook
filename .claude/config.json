@@ -1,0 +1,10 @@
+{
+  "memory": {
+    "project": [
+      "CLAUDE.md"
+    ],
+    "shared": [
+      "CLAUDE_GLOBAL.md"
+    ]
+  }
+}
