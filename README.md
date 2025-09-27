@@ -263,7 +263,6 @@ docs: update documentation # No release
 6. Develop branch synced automatically
 
 For detailed information, see [Automated Releases Guide](docs/AUTOMATED_RELEASES.md).
-
 ---
 
 ## 🛠️ Development Setup
