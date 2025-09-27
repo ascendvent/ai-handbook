@@ -25,7 +25,23 @@ jobs:
       - name: Validate PR title
         env:
           PR_TITLE: ${{ github.event.pull_request.title }}
+          HEAD_BRANCH: ${{ github.event.pull_request.head.ref }}
+          BASE_BRANCH: ${{ github.event.pull_request.base.ref }}
         run: |
+          # Skip validation for GitFlow branch merges (develop -> main, etc.)
+          if [[ "$HEAD_BRANCH" == "develop" && "$BASE_BRANCH" == "main" ]]; then
+            echo "✅ Skipping PR title validation for GitFlow branch merge (develop -> main)"
+            exit 0
+          fi
+
+          # Skip validation for branch merge PRs with simple branch names as titles
+          if [[ "$PR_TITLE" == "develop" || "$PR_TITLE" == "Develop" || "$PR_TITLE" == "main" || "$PR_TITLE" == "Main" ]]; then
+            echo "✅ Skipping PR title validation for branch merge: '$PR_TITLE'"
+            exit 0
+          fi
+
+          # Validate conventional commit format for feature PRs
+          echo "🔍 Validating PR title: '$PR_TITLE'"
           echo "$PR_TITLE" | commitlint
 
       - name: Validate commit messages
