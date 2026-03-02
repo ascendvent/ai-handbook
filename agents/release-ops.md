@@ -1,8 +1,8 @@
 ---
 name: release-ops
 description: Release management, changelog generation, and deployment coordination
-tools: Bash,Read,Write,Edit,Glob,Grep,TodoWrite
-model: sonnet
+tools: Bash,Read,Write,Edit,Glob,Grep
+model: claude-sonnet-4-6
 type: operations
 color: "#7C3AED"
 ---

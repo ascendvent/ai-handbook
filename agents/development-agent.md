@@ -1,8 +1,8 @@
 ---
 name: development-agent
 description: Full-stack React/Node.js/TypeScript specialist with modern patterns and type safety
-tools: Read,Write,Edit,MultiEdit,Glob,Grep,Bash,LS,TodoWrite
-model: sonnet
+tools: Read,Write,Edit,Glob,Grep,Bash
+model: claude-sonnet-4-6
 type: development
 color: "#FF6B35"
 ---

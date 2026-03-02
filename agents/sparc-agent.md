@@ -1,8 +1,8 @@
 ---
 name: sparc-agent
 description: SPARC methodology coordinator for Specification, Pseudocode, Architecture, Refinement, and Completion
-tools: Read,Write,Edit,Glob,Grep,Bash,TodoWrite
-model: sonnet
+tools: Read,Write,Edit,Glob,Grep,Bash
+model: claude-sonnet-4-6
 type: methodology
 color: "#8B5CF6"
 ---

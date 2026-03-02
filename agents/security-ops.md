@@ -1,8 +1,8 @@
 ---
 name: security-ops
 description: Security monitoring, spend control, vulnerability scanning, and compliance
-tools: Bash,Read,Write,Grep,Glob,TodoWrite
-model: sonnet
+tools: Bash,Read,Write,Grep,Glob
+model: claude-sonnet-4-6
 type: security
 color: "#DC2626"
 ---

@@ -1,8 +1,8 @@
 ---
 name: quality-agent
 description: Code quality specialist for analysis, refactoring, review, and DRY enforcement
-tools: Read,Grep,Glob,Bash,Edit,MultiEdit,TodoWrite
-model: claude-3-sonnet-20240229
+tools: Read,Grep,Glob,Bash,Edit
+model: claude-sonnet-4-6
 type: quality
 color: "#6366F1"
 ---

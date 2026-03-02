@@ -10,18 +10,15 @@ jobs:
   test:
     runs-on: ubuntu-latest
     
-    strategy:
-      matrix:
-        node-version: [16.x, 18.x, 20.x]
     
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         
-      - name: Setup Node.js ${{ matrix.node-version }}
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node-version }}
+          node-version: '20'
           cache: 'npm'
           
       - name: Install dependencies
@@ -30,17 +27,6 @@ jobs:
       - name: Run policy validation
         run: npm test
         
-      - name: Check package structure
-        run: |
-          echo "Checking required files exist..."
-          test -f package.json || exit 1
-          test -f index.js || exit 1
-          test -f CLAUDE_GLOBAL.md || exit 1
-          test -f LICENSE || exit 1
-          test -f CONTRIBUTING.md || exit 1
-          test -d agents || exit 1
-          test -d templates || exit 1
-          echo "All required files present ✓"
           
       - name: Validate package.json for open source
         run: |

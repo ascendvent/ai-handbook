@@ -1,258 +1,102 @@
-# CLAUDE_GLOBAL.md — Global Policy (Stack-Agnostic)
+# CLAUDE_GLOBAL.md — Universal AI Development Protocols
 
-## 1. Purpose
-Universal AI development handbook for projects using Claude Code and AI-assisted development.
-Defines constraints, coding standards, SDLC protocols, testing requirements, bug management, documentation rules, agent usage, telemetry, and cost controls.
-**Note:** This file provides global policies that can be inherited by projects via `Inherits: @your-org/ai-handbook` pattern.
+Stack-agnostic behavior rules for Claude Code agents across all projects.
+Install agents and skills via `npx ai-handbook install-agents`.
 
 ---
 
-## 2. Anti-Urgency Bias Protocols
-**Rule:** Urgency never bypasses process.
+## 1. Anti-Urgency Bias
 
-**Pre-Action Checklist**
-1. STOP — Reference project `CLAUDE.md` before any action.
-2. CHECK — If an agent exists, use it.
-3. TEST — Run the project's full test checklist.
-4. REBUILD — Follow stack-specific rules.
-5. VERIFY — Confirm each step passes.
+Urgency never bypasses process.
 
-**Forbidden Shortcuts**
-* No quick fixes without testing.
-* No direct code edits without running the appropriate agent.
-* No skipping build/compilation.
-* No bypassing systematic debugging.
+**Pre-Action Checklist** — run through this before every action:
+1. **STOP** — Read the project `CLAUDE.md` before touching anything.
+2. **CHECK** — Is there an agent in `.claude/agents/` that covers this task? Use it.
+3. **TEST** — Run the project's full test suite first.
+4. **REBUILD** — Follow the stack-specific build steps in `CLAUDE.md`.
+5. **VERIFY** — Confirm each step passes before moving to the next.
+
+No quick fixes without testing. No code edits without running the relevant agent first.
 
 ---
 
-## 3. Mandatory Agent Usage & Critical Rules
+## 2. Agent Selection
 
-### Agent-First (MANDATORY)
-- **ALWAYS** check `.claude/agents/` before ANY manual implementation work.
-- **REQUIRED** for these task types:
-  - Bug analysis and fixes → `quality-agent` 
-  - React/Node.js implementation → `development-agent`
-  - Test creation → `test-agent`
-  - Code quality issues → `quality-agent`
-  - Process coordination → `sparc-agent`
-  - GitHub workflows → `github-workflow`
-  - GitHub issues management → `github-issues`
-  - Build and CI/CD → `build-monitor`
-  - Security and spend → `security-ops`
-  - Releases and deployment → `release-ops`
-  - Planning and tracking → `tracking-agent`
-  - Blocker Management and escalation → `blocker-escalation-agent`
-- **Workflow**: Use `Task` tool with appropriate `subagent_type` BEFORE any manual Read/Write/Edit operations.
-- **Exception**: Only skip agents for trivial tasks (single line changes, documentation updates).
+Always check `.claude/agents/` before manual implementation. Use the `Task` tool with the appropriate agent — only work directly if no agent covers the task.
 
-### Blocker Management & Escalation
-- **MAJOR BLOCKERS** require immediate escalation to user: Authentication failures, API access issues, missing credentials, environment configuration problems that prevent core functionality validation
-- **MINOR ISSUES** continue troubleshooting: Code logic bugs, test failures, build issues, TypeScript errors
-- **VALIDATION vs IMPLEMENTATION**: Never claim "validation success" without actual successful execution - distinguish between "code written" and "feature validated"
-- **STOP AND ASK** when hitting authentication/access blockers - don't create elaborate workarounds and claim success
-- **BE HONEST** about limitations - report "implementation complete, validation blocked" instead of false claims
+| Task | Agent |
+|------|-------|
+| Bug analysis and code fixes | `quality-agent` |
+| React / Node.js / TypeScript implementation | `development-agent` |
+| Test creation and coverage | `test-agent` |
+| Process coordination (large features) | `sparc-agent` |
+| Planning vs implementation alignment | `tracking-agent` |
+| PR creation and branch management | `github-workflow` |
+| Issue management | `github-issues` |
+| Build validation, CI/CD, health checks | `build-monitor` |
+| Security scanning and spend control | `security-ops` |
+| Release management and changelog | `release-ops` |
+| Blocked? Determine whether to escalate | `blocker-escalation-agent` |
 
-### Authentication/Access Escalation Criteria
-- **401/403 errors** preventing API testing → STOP and ask for auth guidance
-- **Missing API keys or tokens** → STOP and ask for credentials  
-- **Environment setup blockers** → STOP and ask for configuration help
-- **Permission issues** preventing file access → STOP and ask for permissions
-- **Network/connectivity issues** preventing external API calls → STOP and ask for network guidance
-- **Requirement and Tack Clarification** → STOP and ask follow up questions to research and ensure details for verification all asks
-
-### Architectural Assumption Prevention Protocol
-- **Infrastructure Assumptions** → STOP and confirm what's actually deployed vs documented before implementing solutions
-- **Implementation Approach Ambiguity** → STOP and ask which approach when multiple options exist (e.g., n8n workflows vs monolith)
-- **Scope Verification** → STOP and clarify requirements when specs mention unbuilt features as if they exist
-- **Architectural Decision Points** → STOP and confirm architecture choices before large implementation efforts
-- **Technology Stack Verification** → STOP and verify actual technology deployment vs specification assumptions
-
-**Required Clarifying Questions Framework:**
-Before any major implementation, agents MUST ask:
-- "I see specs mentioning [technology/infrastructure] - is this actually deployed and configured?"
-- "Should I implement approach A or B? Both are mentioned in the documentation."
-- "Before building this, what's the current state of [infrastructure/feature/service]?"
-- "The specs assume [X] exists - can you confirm the current implementation status?"
-- "Which architectural approach should I take: [list specific options from analysis]?"
-
-**Implementation Rule:**
-When multiple viable approaches exist or infrastructure state is unclear, agents MUST present options and ask for explicit direction rather than making assumptions and proceeding.
-
-**Available Agents**
-(Located in `/agents/` directory)
-* **Development:** development-agent, quality-agent, test-agent
-* **Process Management:** sparc-agent, tracking-agent, blocker-escalation-agent
-* **GitHub Integration:** github-workflow, github-issues
-* **Operations:** build-monitor, security-ops, release-ops
-
-**Usage Protocol**
-1. Identify the task.
-2. Check `/agents/` directory for an agent covering it.
-3. Use `Task` tool with appropriate `subagent_type` parameter.
-4. Only proceed manually if no agent covers the task.
-
-**Available Agent Types:**
-- blocker-escalation-agent
-- build-monitor  
-- development-agent
-- github-issues
-- github-workflow
-- quality-agent
-- release-ops
-- security-ops
-- sparc-agent
-- test-agent
-- tracking-agent
 ---
 
-## 4. Testing Protocols (No Exceptions)
-Before any code change:
+## 3. Blocker Management & Escalation
 
-1. Run the full test suite.
-2. Block progress if failures occur.
-3. Follow clean build rules enforced by local-build agent.
+### Classification
 
-**Universal Testing Standards**
+**MAJOR BLOCKERS — escalate immediately, do not work around:**
+- Authentication failures (401/403)
+- Missing credentials, API keys, or tokens
+- Environment or database connectivity failures
+- Permission denied on required resources
+- Network issues preventing external API calls
+- Same error persisting after 3+ distinct fix attempts
+
+**MINOR ISSUES — continue troubleshooting:**
+- Code logic bugs, TypeScript errors
+- Test failures, build issues, linting
+- Missing implementation (the code just needs to be written)
+
+### Honest Reporting
+
+Never conflate these — be explicit about which stage is done:
+- **"Code written"** ≠ **"Tests executed and passing"**
+- **"Deployed"** ≠ **"Health check confirmed"**
+- **"Implementation complete"** ≠ **"Validated working"**
+
+Only claim success with proof: logs, test output, or API response showing the expected state.
+
+---
+
+## 4. Architectural Assumption Prevention
+
+Before any major implementation, stop and confirm when:
+- Specs mention infrastructure or services that may not be deployed
+- Multiple viable approaches exist and the right one is unclear
+- The current state of a feature or system is ambiguous
+- A technology stack assumption hasn't been verified against reality
+
+**Required questions to ask before proceeding:**
+- "Is `[technology/service]` actually deployed and configured, or just documented?"
+- "Should I use approach A or B? Both appear in the documentation."
+- "What's the current state of `[infrastructure/feature]` before I build on top of it?"
+- "The specs assume `[X]` exists — can you confirm its current implementation status?"
+
+When infrastructure state is unclear or multiple approaches exist, present options and ask for explicit direction. Do not assume and proceed.
+
+---
+
+## 5. Testing Honesty
+
 - Coverage target ≥ 80%.
 - Add regression tests for every bug fix.
-- Route handlers covered with Jest + Supertest (or equivalent).
-- PR merges blocked on failing tests, TypeScript errors, or build failures.
-
-**Safety Gates**
-- Tests must pass locally before PR.
-- TypeScript must compile clean.
-- Docker build must succeed if containerized.
-- User story reference (US-XXX) required for all feature work.
-- **📋 Planning document alignment validated before merge**.
-- **📊 User story status updated when features completed**.
-
-Violations = Immediate Stop
----
-
-## 5. Process Compliance
-Each action must:
-
-* Reference relevant CLAUDE.md protocol.
-* Use agents first.
-* Pass all tests.
-* Follow rebuild and verification rules.
-
-**Compliance Checklist**
-* Protocol check done
-* Agent availability verified
-* Tests passed
-* Docs updated
-* Rebuild verified
+- **Never claim test success without actual execution.** If tests are written but blocked by auth/environment issues, report: *"Tests written, execution blocked by [issue]"* — not *"Tests passing."*
+- If an API returns success but the data hasn't changed, treat it as a failure and block progress until fixed.
 
 ---
 
-## 6. Development Guidelines
-* Strict typing and linting.
-* Follow repo-specific formatters.
-* Prefer functional patterns.
----
+## 6. Secrets & Spend
 
-## 7. Testing & Bug Management
-**TDD Workflow**
-* Unit → Integration → E2E.
-* Coverage meets global bar.
-* Manual smoke tests before PR.
-
-**Bug Logging**
-* Repro steps, environment, severity.
-* Include failing test.
-* Commit references bug ID.
-
-**Severity Matrix**
-* Critical — Immediate fix + regression test.
-* High — Fix next sprint.
-* Medium — Scheduled fix.
-* Low — Backlog.
-
----
-
-## 8. Performance & Loop Prevention
-* Avoid unstable dependencies in hooks.
-* Memoize callbacks.
-* Monitor console warnings, network activity, and memory usage.
-
-**Performance & Loop Prevention (Frontend)**
-- Avoid unstable deps in effects and callbacks.
-- Memoize callbacks and derived values where necessary.
-- Watch for rapid identical requests and excessive render cycles.
-
-**Refactoring Expectations (Repo-level DRY)**
-- Consolidate shared logic into `/shared` when used by both client and server.
-- Detect and resolve duplicate or near-duplicate modules, including stale copies in different dirs.
-- Identify dangling files not imported anywhere; either delete or merge.
-- Preserve behavior; minimal diffs preferred.
-
----
-
-## 9. Data Verification
-* Verify persistence before/after API calls.
-* Pair endpoint tests with state inspection.
-* If API returns success but data unchanged, block progress until fixed.
-
-**Data Verification (Backend)**
-- Verify persistence before/after API calls.
-- If API returns success with no state change, treat as a failure and block progress.
-
-**Spend & Secrets**
-- Do not hardcode tokens. Use env files and keep them out of VCS.
-- Local token budgets enforced by agents where configured.
-
----
-
-## 10. Change Verification
-After changes:
-
-1. Confirm build success.
-2. Verify logs.
-3. Test feature behavior.
-4. Roll back if change not applied.
-
----
-
-## 11. Feature Development Workflow
-**SPEC-FIRST**
-* Overview, user stories, acceptance criteria, tech + UX requirements, tests, dependencies, DoD.
-
-**Process**
-1. Get spec approval.
-2. Implement in phases.
-3. Test & document.
-4. PR review required before merge.
-
----
-
-## 12. Git & SDLC Rules
-* No commits to main or develop.
-* Branch per task.
-* Update docs and tests.
-* PR stops at review.
-
----
-
-## 13. Observability & Metrics
-* Export agent run metadata.
-* Generate weekly performance reports.
-
----
-
-## 14. Change Control
-* policy-change PR label for CLAUDE.md edits.
-* PR includes rationale + rollout checklist.
-
----
-
-## 15. Troubleshooting Quick Reference
-**Success Indicators**
-* Clean logs.
-* Health checks green.
-* No loop warnings.
-
-**Common Fixes**
-* Hook stabilization (see react-patterns agent).
-* Callback memoization (see refactoring-agent).
-* Dependency cleanup (see typescript-enforcement).
+- Never hardcode tokens, API keys, or credentials. Use environment variables only.
+- Keep `.env` files out of version control.
+- If API spend tracking is configured, respect local token budgets.
