@@ -1,8 +1,8 @@
 ---
 name: test-agent
 description: Comprehensive testing specialist with coverage enforcement and test-driven development
-tools: Read,Write,Edit,Bash,Glob,Grep,TodoWrite
-model: claude-3-sonnet-20240229
+tools: Read,Write,Edit,Bash,Glob,Grep
+model: claude-sonnet-4-6
 type: testing
 color: "#10B981"
 ---

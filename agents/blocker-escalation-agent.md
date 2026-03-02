@@ -1,8 +1,8 @@
 ---
 name: blocker-escalation-agent
 description: Escalation and blocker management specialist for identifying when to stop troubleshooting and ask for user input
-tools: Read,Grep,Bash,TodoWrite
-model: claude-3-sonnet-20240229
+tools: Read,Grep,Bash
+model: claude-sonnet-4-6
 type: escalation
 color: "#EF4444"
 ---

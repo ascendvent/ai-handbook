@@ -1,8 +1,8 @@
 ---
 name: tracking-agent
 description: Planning/implementation alignment monitoring to prevent documentation disconnect
-tools: Read,Write,Grep,Glob,Bash,TodoWrite
-model: sonnet
+tools: Read,Write,Grep,Glob,Bash
+model: claude-sonnet-4-6
 type: monitoring
 color: "#9333EA"
 ---

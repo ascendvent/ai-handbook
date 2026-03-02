@@ -1,8 +1,8 @@
 ---
 name: github-issues
 description: GitHub issue management with automated tracking and team coordination
-tools: Bash,TodoWrite,Read,Write
-model: sonnet
+tools: Bash,Read,Write
+model: claude-sonnet-4-6
 type: development
 color: "#22C55E"
 ---

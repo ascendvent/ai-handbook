@@ -1,8 +1,8 @@
 ---
 name: build-monitor
 description: Build validation, CI/CD operations, health checks and metrics monitoring
-tools: Bash,Read,Write,Glob,Grep,TodoWrite
-model: sonnet
+tools: Bash,Read,Write,Glob,Grep
+model: claude-sonnet-4-6
 type: operations
 color: "#F59E0B"
 ---

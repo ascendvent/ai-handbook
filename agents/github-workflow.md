@@ -1,8 +1,8 @@
 ---
 name: github-workflow
 description: GitHub workflow management for PR creation, branch operations, and validation
-tools: Bash,Read,Write,Edit,Glob,Grep,LS,TodoWrite
-model: sonnet
+tools: Bash,Read,Write,Edit,Glob,Grep
+model: claude-sonnet-4-6
 type: development
 color: "#4ECDC4"
 ---

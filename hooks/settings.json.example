@@ -1,0 +1,112 @@
+// Copy the content you want into your project's .claude/settings.json
+// (or merge with existing settings — the "hooks" key is the only new addition)
+//
+// These hooks enforce quality gates automatically whenever Claude edits files.
+// All commands are silent on success and only surface output on failure.
+//
+// Settings format: hook events live directly at the top level (no "hooks" wrapper).
+// See: https://docs.anthropic.com/en/docs/claude-code/hooks
+
+{
+  // ─── RECOMMENDED: TypeScript + Lint on every file edit ───────────────────
+  //
+  // Catches type errors and lint violations the moment Claude writes code,
+  // before it moves on to the next file.
+
+  "PostToolUse": [
+    {
+      "matcher": "Edit|Write",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "npx tsc --noEmit --silent 2>&1 | head -20",
+          "timeout": 30
+        }
+      ]
+    },
+    {
+      "matcher": "Edit|Write",
+      "hooks": [
+        {
+          "type": "command",
+          "command": "npm run lint --silent 2>&1 | tail -10",
+          "timeout": 30
+        }
+      ]
+    }
+  ],
+
+  // ─── OPTIONAL: Run tests after edits ─────────────────────────────────────
+  //
+  // Uncomment to run the test suite after every file change.
+  // Useful for TDD workflows; can be slow on large projects.
+
+  // "PostToolUse": [
+  //   {
+  //     "matcher": "Edit|Write",
+  //     "hooks": [
+  //       {
+  //         "type": "command",
+  //         "command": "npm test --silent 2>&1 | tail -20",
+  //         "timeout": 60
+  //       }
+  //     ]
+  //   }
+  // ],
+
+  // ─── OPTIONAL: Block edits to sensitive files ─────────────────────────────
+  //
+  // Prevents Claude from modifying environment files or secrets without
+  // an explicit user confirmation step.
+
+  // "PreToolUse": [
+  //   {
+  //     "matcher": "Edit|Write",
+  //     "hooks": [
+  //       {
+  //         "type": "prompt",
+  //         "prompt": "The file being edited is: $TOOL_INPUT. If the file path ends in .env, .env.local, .env.production, or contains 'secret' or 'credential', return {\"hookSpecificOutput\": {\"permissionDecision\": \"ask\"}, \"systemMessage\": \"Sensitive file — confirm with user before editing.\"}. Otherwise return {\"hookSpecificOutput\": {\"permissionDecision\": \"allow\"}}.",
+  //         "timeout": 15
+  //       }
+  //     ]
+  //   }
+  // ],
+
+  // ─── OPTIONAL: Remind Claude of quality standards at session start ─────────
+  //
+  // Loads your quality standards into context at the start of every session.
+  // Equivalent to having CLAUDE_GLOBAL.md open, but as an automated reminder.
+
+  // "SessionStart": [
+  //   {
+  //     "hooks": [
+  //       {
+  //         "type": "command",
+  //         "command": "cat .claude/quality-standards.md 2>/dev/null || true"
+  //       }
+  //     ]
+  //   }
+  // ]
+}
+
+// ─── USAGE ────────────────────────────────────────────────────────────────────
+//
+// 1. Copy the JSON object above (without comments) into .claude/settings.json:
+//
+//    {
+//      "PostToolUse": [ ... ]
+//    }
+//
+// 2. Or merge with existing settings:
+//
+//    {
+//      "skipDangerousModePermissionPrompt": true,
+//      "PostToolUse": [ ... ]
+//    }
+//
+// 3. For global hooks (all projects), put in ~/.claude/settings.json instead.
+//
+// ─── INSTALL VIA HANDBOOK ─────────────────────────────────────────────────────
+//
+//    npx ai-handbook install-hooks    # copies a clean version to .claude/settings.json
+//                                     # (coming in a future release)

@@ -31,8 +31,7 @@ if (pkg.license !== 'Apache-2.0') {
 
 // Validate required files exist
 const requiredFiles = [
-  'index.js',
-  'CLAUDE_GLOBAL.md', 
+  'CLAUDE_GLOBAL.md',
   'LICENSE',
   'CONTRIBUTING.md',
   'agents/',
